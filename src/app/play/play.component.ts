@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { Games } from './games'
 import { TimeoutError } from 'rxjs';
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 
@@ -25,8 +27,10 @@ export class PlayComponent implements OnInit {
   valid: number;
   solved: boolean;
 
-  constructor() {
-    this.values = this.loadGame(this.gameNum);
+  boardTarget: number;
+  difficulty: string;
+
+  constructor(private route: ActivatedRoute, private router: Router) {
     // this.values = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     this.directions = [[undefined, 3, 4, 5, undefined, 6, 7, 8, 9, undefined, 10, 11, 12, 13, 14],
                        [undefined, 3, 7, 12, undefined, 1, 4, 8, 13, undefined, 0, 2, 5, 9, 14],
@@ -36,6 +40,8 @@ export class PlayComponent implements OnInit {
     this.start = undefined;
     this.middle = undefined;
     this.target = undefined;
+    this.boardTarget = undefined;
+    this.difficulty = undefined;
     this.solved = false;
     for (let i = 0; i < 15; i++) {
       this.state[i] = 0;
@@ -43,6 +49,14 @@ export class PlayComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.gameNum = parseInt(this.route.snapshot.paramMap.get("gameNum"));
+    if (!this.gameNum) this.gameNum = 1;
+    console.log(this.gameNum);
+    let game: any = undefined;
+    game = this.loadGame(this.gameNum);
+    this.values = Object.assign([], game.board);
+    this.boardTarget = game.target;
+    this.difficulty = game.difficulty;
   }
 
   onClick(id: number) {
@@ -169,8 +183,12 @@ export class PlayComponent implements OnInit {
     for (let i = 0; i < 15; i++) {
       this.state[i] = 0;
     }
-    this.values = this.loadGame(game);
+    let g: any = this.loadGame(game);
+    this.values = Object.assign([], g.board);
+    this.difficulty = g.difficulty;
+    this.boardTarget = g.target;
     this.numMoves = 0;
+    this.moveStack = [];
     this.start = undefined;
     this.middle = undefined;
     this.target = undefined;
@@ -180,25 +198,39 @@ export class PlayComponent implements OnInit {
   loadGame(game: number) {
     if (game === 1) {
       this.gameNum = 1;
-      return [-1,8,8,2,3,13,2,13,13,8,3,2,1,8,5];
+      return Games.game1;
     } else if (game === 2) {
       this.gameNum = 2;
-      return [3,5,3,1,2,13,13,1,34,8,3,1,-1,1,1];
+      return Games.game2;
     } else if (game === 3) {
       this.gameNum = 3;
-      return [8,3,8,2,-1,5,3,3,8,3,34,2,5,3,2];
+      return Games.game3;
+    } else if (game === 4) {
+      this.gameNum = 4;
+      return Games.game4;
+    } else if (game === 5) {
+      this.gameNum = 5;
+      return Games.game5;
     } else {
-      return [8,3,8,2,-1,5,3,3,8,3,34,2,5,3,2];
+      this.gameNum = 6;
+      return Games.game6;
     }
   }
 
   checkSolved() {
     for (let i = 0; i < 15; i++) {
-      if (this.values[i] >= 0 && this.values[i] !== 89) {
+      if (this.values[i] >= 0 && this.values[i] !== this.boardTarget) {
         return false;
       }
     }
     return true;
+  }
+
+  nextGame(gameNum: number) {
+    let url = '/play/';
+    url += gameNum.toString();
+    this.router.navigate([url]);
+    this.reset(gameNum);
   }
 
 }

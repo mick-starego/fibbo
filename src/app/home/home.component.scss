@@ -1,42 +1,30 @@
-::ng-deep :root {
-    --nextPositionX: 100px;
-    --nextPositionY: 200px;
-}
-
-span {
-
-    &:hover {
-        background: darken(lightgrey, 10%);
-    }
-}
-
-.border {
+.page {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex: 0 0 auto;
     border: 1px solid lightgrey;
 }
 
-$rand: random(5);
-
-.animate {
-    font-weight: bold;
-    background: lightgrey;
-    padding: .3em .8em;
-    cursor: pointer;
-    height: 75px;
+.container {
+    margin-top: 70px;
+    height: 500px;
+    border: 1px solid lightgrey;
     display: flex;
     align-items: center;
-
-    -webkit-animation: pulse 1s infinite alternate;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Nunito';
+    color: #663100;
+    font-size: 90pt;
 }
 
-.game-container {
-    padding: .3em;
-    margin-bottom: 1em;
-    display: flex;
-    height: 85vh;
+.buttons {
+    margin-top: 20px;
 }
 
-@-webkit-keyframes pulse {
-    0%   { -webkit-transform: translate(0, 0)   ; opacity: 1;    }
-    50%  { -webkit-transform: translate(var(--nextPositionX), var(--nextPositionY)); opacity: 0.5; }
-    100% { -webkit-transform: translateX(85px)   ; opacity: 1;    }
- }
+.button {
+    margin-left: 5px;
+    margin-right: 5px;
+}

@@ -14,18 +14,20 @@
         <app-display-node class="display-node" [value]="89"></app-display-node>
         <div class="target">
             <span class="header">target</span>
-            <app-display-node class="display-node" [value]="89"></app-display-node>
+            <app-display-node class="display-node" [value]="boardTarget"></app-display-node>
         </div>
         <div class="difficulty">
             <span class="header">difficulty</span>
-            <span class="body">easy</span>
+            <span *ngIf="difficulty === 'e'" class="easy">easy</span>
+            <span *ngIf="difficulty === 'm'" class="medium">medium</span>
+            <span *ngIf="difficulty === 'h'" class="hard">hard</span>
         </div>
         <div class="rows">
             <span class="header">rows</span>
             <span class="body">5</span>
         </div>
         <div *ngIf="solved; else unsolved" class="button-container">
-            <button mat-flat-button (click)="reset(gameNum + 1)" class="button green">Next Game</button>
+            <button mat-flat-button (click)="nextGame(gameNum + 1)" class="button green">Next Game</button>
         </div>
         <ng-template #unsolved>
             <div class="button-container">

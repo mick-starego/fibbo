@@ -101,10 +101,28 @@
     padding-right: 10px;
     height: 50px;
 
-    .body {
+    .easy {
         width: fit-content;
         font-family: "Nunito";
         color: #54b04d;
+        font-size: 15pt;
+        font-weight: 700;
+        -webkit-user-select: none;
+    }
+
+    .medium {
+        width: fit-content;
+        font-family: "Nunito";
+        color: #d18f2c;
+        font-size: 15pt;
+        font-weight: 700;
+        -webkit-user-select: none;
+    }
+
+    .hard {
+        width: fit-content;
+        font-family: "Nunito";
+        color: #c41704;
         font-size: 15pt;
         font-weight: 700;
         -webkit-user-select: none;
