@@ -1,68 +1,76 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="page">
-    <div class="sidebar">
-        <span class="title">fibbo</span>
-        <span class="sequence-header">the sequence</span>
-        <app-display-node class="display-node" [value]="1"></app-display-node>
-        <app-display-node class="display-node" [value]="2"></app-display-node>
-        <app-display-node class="display-node" [value]="3"></app-display-node>
-        <app-display-node class="display-node" [value]="5"></app-display-node>
-        <app-display-node class="display-node" [value]="8"></app-display-node>
-        <app-display-node class="display-node" [value]="13"></app-display-node>
-        <app-display-node class="display-node" [value]="21"></app-display-node>
-        <app-display-node class="display-node" [value]="34"></app-display-node>
-        <app-display-node class="display-node" [value]="55"></app-display-node>
-        <app-display-node class="display-node" [value]="89"></app-display-node>
-        <div class="target">
-            <span class="header">target</span>
-            <app-display-node class="display-node" [value]="boardTarget"></app-display-node>
+    <div class="column">
+        <div class="title-container">
+            <span class="title">fibbo</span>
+            <button mat-stroked-button class="button" (click)="nextGame(gameNum + 1)">New Game</button>
         </div>
-        <div class="difficulty">
-            <span class="header">difficulty</span>
-            <span *ngIf="difficulty === 'e'" class="easy">easy</span>
-            <span *ngIf="difficulty === 'm'" class="medium">medium</span>
-            <span *ngIf="difficulty === 'h'" class="hard">hard</span>
+        <div class="container" (click)="clickAway()" tabindex="0" (keydown.backspace)="undo()">
+            <!-- <app-node [value]="4"></app-node> -->
+            <div class="row">
+                <app-node class="top node" [value]="values[0]" [selected]='state[0]' (mouseout)="onMouseOut(0)" (mouseover)="onHover(0)" (click)="onClick(0)"></app-node>
+                <mat-icon aria-hidden="false" (click)="undo()" class="undo">undo</mat-icon>
+            </div>
+            <div class="row">
+                <app-node class="node" [value]="values[1]" [selected]='state[1]' (mouseout)="onMouseOut(1)" (mouseover)="onHover(1)" (click)="onClick(1)"></app-node>
+                <app-node class="node" [value]="values[2]" [selected]='state[2]' (mouseout)="onMouseOut(2)" (mouseover)="onHover(2)" (click)="onClick(2)"></app-node>
+            </div>
+            <div class="row">
+                <app-node class="node" [value]="values[3]" [selected]='state[3]' (mouseout)="onMouseOut(3)" (mouseover)="onHover(3)" (click)="onClick(3)"></app-node>
+                <app-node class="node" [value]="values[4]" [selected]='state[4]' (mouseout)="onMouseOut(4)" (mouseover)="onHover(4)" (click)="onClick(4)"></app-node>
+                <app-node class="node" [value]="values[5]" [selected]='state[5]' (mouseout)="onMouseOut(5)" (mouseover)="onHover(5)" (click)="onClick(5)"></app-node>
+            </div>
+            <div class="row">
+                <app-node class="node" [value]="values[6]" [selected]='state[6]' (mouseout)="onMouseOut(6)" (mouseover)="onHover(6)" (click)="onClick(6)"></app-node>
+                <app-node class="node" [value]="values[7]" [selected]='state[7]' (mouseout)="onMouseOut(7)" (mouseover)="onHover(7)" (click)="onClick(7)"></app-node>
+                <app-node class="node" [value]="values[8]" [selected]='state[8]' (mouseout)="onMouseOut(8)" (mouseover)="onHover(8)" (click)="onClick(8)"></app-node>
+                <app-node class="node" [value]="values[9]" [selected]='state[9]' (mouseout)="onMouseOut(9)" (mouseover)="onHover(9)" (click)="onClick(9)"></app-node>
+            </div>
+            <div class="row">
+                <app-node class="node" [value]="values[10]" [selected]='state[10]' (mouseout)="onMouseOut(10)" (mouseover)="onHover(10)" (click)="onClick(10)"></app-node>
+                <app-node class="node" [value]="values[11]" [selected]='state[11]' (mouseout)="onMouseOut(11)" (mouseover)="onHover(11)" (click)="onClick(11)"></app-node>
+                <app-node class="node" [value]="values[12]" [selected]='state[12]' (mouseout)="onMouseOut(12)" (mouseover)="onHover(12)" (click)="onClick(12)"></app-node>
+                <app-node class="node" [value]="values[13]" [selected]='state[13]' (mouseout)="onMouseOut(13)" (mouseover)="onHover(13)"(click)="onClick(13)"></app-node>
+                <app-node class="node" [value]="values[14]" [selected]='state[14]' (mouseout)="onMouseOut(14)" (mouseover)="onHover(14)" (click)="onClick(14)"></app-node>
+            </div>
         </div>
-        <div class="rows">
-            <span class="header">rows</span>
-            <span class="body">5</span>
+        <div class="sidebar">
+            <span class="sequence-header">the sequence</span>
+            <app-display-node class="display-node" [value]="1"></app-display-node>
+            <app-display-node class="display-node" [value]="2"></app-display-node>
+            <app-display-node class="display-node" [value]="3"></app-display-node>
+            <app-display-node class="display-node" [value]="5"></app-display-node>
+            <app-display-node class="display-node" [value]="8"></app-display-node>
+            <app-display-node class="display-node" [value]="13"></app-display-node>
+            <app-display-node class="display-node" [value]="21"></app-display-node>
+            <app-display-node class="display-node" [value]="34"></app-display-node>
+            <app-display-node class="display-node" [value]="55"></app-display-node>
+            <app-display-node class="display-node" [value]="89"></app-display-node>
+            <div class="info">
+                <div class="target">
+                    <span class="header">target</span>
+                    <app-display-node class="display-node" [value]="boardTarget"></app-display-node>
+                </div>
+                <div class="difficulty">
+                    <span class="header">difficulty</span>
+                    <span *ngIf="difficulty === 'e'" class="easy">easy</span>
+                    <span *ngIf="difficulty === 'm'" class="medium">medium</span>
+                    <span *ngIf="difficulty === 'h'" class="hard">hard</span>
+                </div>
+                <div class="rows">
+                    <span class="header">rows</span>
+                    <span class="body">5</span>
+                </div>
+            </div>
         </div>
-        <div *ngIf="solved; else unsolved" class="button-container">
+        <!-- <div *ngIf="solved; else unsolved" class="button-container">
             <button mat-flat-button (click)="nextGame(gameNum + 1)" class="button green">Next Game</button>
         </div>
         <ng-template #unsolved>
             <div class="button-container">
-                <button mat-stroked-button color="warn" class="button" (click)="reset(gameNum)">Reset</button>
+                
             </div>
-        </ng-template>
-    </div>
-    <div class="container" (click)="clickAway()" tabindex="0" (keydown.backspace)="undo()">
-        <!-- <app-node [value]="4"></app-node> -->
-        <div class="row">
-            <app-node class="top" [value]="values[0]" [selected]='state[0]' (mouseout)="onMouseOut(0)" (mouseover)="onHover(0)" (click)="onClick(0)"></app-node>
-            <mat-icon aria-hidden="false" (click)="undo()" class="undo">undo</mat-icon>
-        </div>
-        <div class="row">
-            <app-node [value]="values[1]" [selected]='state[1]' (mouseout)="onMouseOut(1)" (mouseover)="onHover(1)" (click)="onClick(1)"></app-node>
-            <app-node [value]="values[2]" [selected]='state[2]' (mouseout)="onMouseOut(2)" (mouseover)="onHover(2)" (click)="onClick(2)"></app-node>
-        </div>
-        <div class="row">
-            <app-node [value]="values[3]" [selected]='state[3]' (mouseout)="onMouseOut(3)" (mouseover)="onHover(3)" (click)="onClick(3)"></app-node>
-            <app-node [value]="values[4]" [selected]='state[4]' (mouseout)="onMouseOut(4)" (mouseover)="onHover(4)" (click)="onClick(4)"></app-node>
-            <app-node [value]="values[5]" [selected]='state[5]' (mouseout)="onMouseOut(5)" (mouseover)="onHover(5)" (click)="onClick(5)"></app-node>
-        </div>
-        <div class="row">
-            <app-node [value]="values[6]" [selected]='state[6]' (mouseout)="onMouseOut(6)" (mouseover)="onHover(6)" (click)="onClick(6)"></app-node>
-            <app-node [value]="values[7]" [selected]='state[7]' (mouseout)="onMouseOut(7)" (mouseover)="onHover(7)" (click)="onClick(7)"></app-node>
-            <app-node [value]="values[8]" [selected]='state[8]' (mouseout)="onMouseOut(8)" (mouseover)="onHover(8)" (click)="onClick(8)"></app-node>
-            <app-node [value]="values[9]" [selected]='state[9]' (mouseout)="onMouseOut(9)" (mouseover)="onHover(9)" (click)="onClick(9)"></app-node>
-        </div>
-        <div class="row">
-            <app-node [value]="values[10]" [selected]='state[10]' (mouseout)="onMouseOut(10)" (mouseover)="onHover(10)" (click)="onClick(10)"></app-node>
-            <app-node [value]="values[11]" [selected]='state[11]' (mouseout)="onMouseOut(11)" (mouseover)="onHover(11)" (click)="onClick(11)"></app-node>
-            <app-node [value]="values[12]" [selected]='state[12]' (mouseout)="onMouseOut(12)" (mouseover)="onHover(12)" (click)="onClick(12)"></app-node>
-            <app-node [value]="values[13]" [selected]='state[13]' (mouseout)="onMouseOut(13)" (mouseover)="onHover(13)"(click)="onClick(13)"></app-node>
-            <app-node [value]="values[14]" [selected]='state[14]' (mouseout)="onMouseOut(14)" (mouseover)="onHover(14)" (click)="onClick(14)"></app-node>
-        </div>
+        </ng-template> -->
     </div>
 </div>
 

@@ -3,21 +3,32 @@
 }
 
 .container {
-    margin-top: 70px;
-    height: 500px;
-    outline: none;
-    width: 500px;
-    max-width: 500px;
     opacity: 0.8;
-    margin-right: 150px;
+    transform: scale(0.9);
+    width: fit-content;
+    outline: none;
+    margin-top: -10px;
 }
 
 .page {
+    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
     justify-content: center;
-    flex: 0 0 auto;
+}
+
+.column {
+    width: fit-content;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+}
+
+.node {
+    margin-left: 7px;
+    margin-right: 7px;
 }
 
 .row {
@@ -44,58 +55,70 @@
     margin-right: 150px;
 }
 
+.info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 .sidebar {
-    width: 300px;
-    height: 500px;
-    margin-top: 70px;
-    margin-right: 20px;
-    margin-left: 150px;
+    width: 450px;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
+    margin-left: 25px;
 }
 
 .title {
     font-family: "Nunito";
-    font-size: 80pt;
+    font-size: 60pt;
     color: #663100;
-    padding-top: 40px;
     -webkit-user-select: none;
-    height: 50px;
+    padding-left: 25px;
+}
+
+.title-container {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    height: 70px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .sequence-header {
-    width: 300px;
+    width: 500px;
     font-family: "Nunito";
     color: #663100;
     font-size: 15pt;
-    margin-top: 30px;
+    margin-top: 5px;
     padding-left: 10px;
     margin-bottom: 10px;
     -webkit-user-select: none;
 }
 
 .target {
-    width: 300px;
     margin-top: 8px;
     padding-left: 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 50px;
+    justify-content: center;
+    flex-direction: column;
+    height: 60px;
 
     .header {
         font-family: "Nunito";
         color: #663100;
         font-size: 15pt;
         -webkit-user-select: none;
+        padding-bottom: 3px;
     }
 }
 
 .difficulty {
-    width: 300px;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: space-between;
     margin-top: 8px;
     padding-left: 10px;
@@ -139,10 +162,10 @@
 }
 
 .rows {
-    width: 300px;
     height: 50px;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     margin-top: 8px;
     padding-left: 10px;
@@ -172,9 +195,11 @@
 }
 
 .button {
-    width: 100%;
     font-family: 'Nunito';
     font-weight: 700;
+    height: 40px;
+    margin-right: 25px;
+    color: #663100;
 }
 
 .button-container {
