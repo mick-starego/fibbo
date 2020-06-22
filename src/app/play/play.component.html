@@ -5,6 +5,35 @@
             <span class="title">fibbo</span>
             <button mat-stroked-button class="button" (click)="nextGame(gameNum + 1)">New Game</button>
         </div>
+        <div class="sidebar">
+            <!-- <span class="sequence-header">the sequence</span>
+            <app-display-node class="display-node" [value]="1"></app-display-node>
+            <app-display-node class="display-node" [value]="2"></app-display-node>
+            <app-display-node class="display-node" [value]="3"></app-display-node>
+            <app-display-node class="display-node" [value]="5"></app-display-node>
+            <app-display-node class="display-node" [value]="8"></app-display-node>
+            <app-display-node class="display-node" [value]="13"></app-display-node>
+            <app-display-node class="display-node" [value]="21"></app-display-node>
+            <app-display-node class="display-node" [value]="34"></app-display-node>
+            <app-display-node class="display-node" [value]="55"></app-display-node>
+            <app-display-node class="display-node" [value]="89"></app-display-node> -->
+            <div class="info">
+                <div class="target">
+                    <span class="header">target</span>
+                    <app-display-node class="display-node" [value]="boardTarget"></app-display-node>
+                </div>
+                <div class="difficulty">
+                    <span class="header">difficulty</span>
+                    <span *ngIf="difficulty === 'e'" class="easy">easy</span>
+                    <span *ngIf="difficulty === 'm'" class="medium">medium</span>
+                    <span *ngIf="difficulty === 'h'" class="hard">hard</span>
+                </div>
+                <div class="rows">
+                    <span class="header">rows</span>
+                    <span class="body">5</span>
+                </div>
+            </div>
+        </div>
         <div class="container" (click)="clickAway()" tabindex="0" (keydown.backspace)="undo()">
             <!-- <app-node [value]="4"></app-node> -->
             <div class="row">
@@ -32,35 +61,6 @@
                 <app-node class="node" [value]="values[12]" [selected]='state[12]' (mouseout)="onMouseOut(12)" (mouseover)="onHover(12)" (click)="onClick(12)"></app-node>
                 <app-node class="node" [value]="values[13]" [selected]='state[13]' (mouseout)="onMouseOut(13)" (mouseover)="onHover(13)"(click)="onClick(13)"></app-node>
                 <app-node class="node" [value]="values[14]" [selected]='state[14]' (mouseout)="onMouseOut(14)" (mouseover)="onHover(14)" (click)="onClick(14)"></app-node>
-            </div>
-        </div>
-        <div class="sidebar">
-            <span class="sequence-header">the sequence</span>
-            <app-display-node class="display-node" [value]="1"></app-display-node>
-            <app-display-node class="display-node" [value]="2"></app-display-node>
-            <app-display-node class="display-node" [value]="3"></app-display-node>
-            <app-display-node class="display-node" [value]="5"></app-display-node>
-            <app-display-node class="display-node" [value]="8"></app-display-node>
-            <app-display-node class="display-node" [value]="13"></app-display-node>
-            <app-display-node class="display-node" [value]="21"></app-display-node>
-            <app-display-node class="display-node" [value]="34"></app-display-node>
-            <app-display-node class="display-node" [value]="55"></app-display-node>
-            <app-display-node class="display-node" [value]="89"></app-display-node>
-            <div class="info">
-                <div class="target">
-                    <span class="header">target</span>
-                    <app-display-node class="display-node" [value]="boardTarget"></app-display-node>
-                </div>
-                <div class="difficulty">
-                    <span class="header">difficulty</span>
-                    <span *ngIf="difficulty === 'e'" class="easy">easy</span>
-                    <span *ngIf="difficulty === 'm'" class="medium">medium</span>
-                    <span *ngIf="difficulty === 'h'" class="hard">hard</span>
-                </div>
-                <div class="rows">
-                    <span class="header">rows</span>
-                    <span class="body">5</span>
-                </div>
             </div>
         </div>
         <!-- <div *ngIf="solved; else unsolved" class="button-container">
