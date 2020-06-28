@@ -227,6 +227,7 @@ export class PlayComponent implements OnInit {
   }
 
   nextGame(gameNum: number) {
+    if (gameNum > 6) { gameNum = 1;}
     let url = '/play/';
     url += gameNum.toString();
     this.router.navigate([url]);
