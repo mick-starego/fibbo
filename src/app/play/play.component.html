@@ -6,17 +6,6 @@
             <button mat-stroked-button class="button" (click)="nextGame(gameNum + 1)">New Game</button>
         </div>
         <div class="sidebar">
-            <!-- <span class="sequence-header">the sequence</span>
-            <app-display-node class="display-node" [value]="1"></app-display-node>
-            <app-display-node class="display-node" [value]="2"></app-display-node>
-            <app-display-node class="display-node" [value]="3"></app-display-node>
-            <app-display-node class="display-node" [value]="5"></app-display-node>
-            <app-display-node class="display-node" [value]="8"></app-display-node>
-            <app-display-node class="display-node" [value]="13"></app-display-node>
-            <app-display-node class="display-node" [value]="21"></app-display-node>
-            <app-display-node class="display-node" [value]="34"></app-display-node>
-            <app-display-node class="display-node" [value]="55"></app-display-node>
-            <app-display-node class="display-node" [value]="89"></app-display-node> -->
             <div class="info">
                 <div class="target">
                     <span class="header">target</span>
@@ -33,6 +22,17 @@
                     <span class="body">5</span>
                 </div>
             </div>
+            <span class="sequence-header">the sequence</span>
+            <app-display-node class="display-node" [value]="1"></app-display-node>
+            <app-display-node class="display-node" [value]="2"></app-display-node>
+            <app-display-node class="display-node" [value]="3"></app-display-node>
+            <app-display-node class="display-node" [value]="5"></app-display-node>
+            <app-display-node class="display-node" [value]="8"></app-display-node>
+            <app-display-node class="display-node" [value]="13"></app-display-node>
+            <app-display-node class="display-node" [value]="21"></app-display-node>
+            <app-display-node class="display-node" [value]="34"></app-display-node>
+            <app-display-node class="display-node" [value]="55"></app-display-node>
+            <app-display-node class="display-node" [value]="89"></app-display-node>
         </div>
         <div class="container" (click)="clickAway()" tabindex="0" (keydown.backspace)="undo()">
             <!-- <app-node [value]="4"></app-node> -->
