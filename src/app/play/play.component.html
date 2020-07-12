@@ -3,7 +3,7 @@
     <div class="column">
         <div class="title-container">
             <span class="title">fibbo</span>
-            <button mat-stroked-button class="button" (click)="nextGame(gameNum + 1)">New Game</button>
+            <button mat-stroked-button class="button" (click)="nextGame()">New Game</button>
         </div>
         <div class="sidebar">
             <div class="info">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <!-- <div *ngIf="solved; else unsolved" class="button-container">
-            <button mat-flat-button (click)="nextGame(gameNum + 1)" class="button green">Next Game</button>
+            <button mat-flat-button (click)="nextGame()" class="button green">Next Game</button>
         </div>
         <ng-template #unsolved>
             <div class="button-container">

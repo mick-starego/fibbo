@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DisplayNodeComponent } from './display-node/display-node.component';
+import { TestComponent } from './game-gen/test/test.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DisplayNodeComponent } from './display-node/display-node.component';
     HomeComponent,
     PlayComponent,
     NodeComponent,
-    DisplayNodeComponent
+    DisplayNodeComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

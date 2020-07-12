@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Games } from './games'
-import { TimeoutError } from 'rxjs';
-import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
+import {FibboGenerator} from "../game-gen/FibboGenerator";
 
 @Component({
   selector: 'app-play',
@@ -16,7 +13,6 @@ export class PlayComponent implements OnInit {
   moveStack: number[][] = [];
   numMoves = 0;
   fibbSeq: number[];
-  gameNum = 1;
 
   start: number;
   middle: number;
@@ -24,14 +20,12 @@ export class PlayComponent implements OnInit {
   passClickAway = false;
   state: number[] = [];
   invalid: number;
-  valid: number;
   solved: boolean;
 
   boardTarget: number;
   difficulty: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
-    // this.values = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+  constructor() {
     this.directions = [[undefined, 3, 4, 5, undefined, 6, 7, 8, 9, undefined, 10, 11, 12, 13, 14],
                        [undefined, 3, 7, 12, undefined, 1, 4, 8, 13, undefined, 0, 2, 5, 9, 14],
                        [undefined, 5, 8, 12, undefined, 2, 4, 7, 11, undefined, 0, 1, 3, 6, 10]];
@@ -49,11 +43,9 @@ export class PlayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gameNum = parseInt(this.route.snapshot.paramMap.get("gameNum"));
-    if (!this.gameNum) this.gameNum = 1;
-    console.log(this.gameNum);
-    let game: any = undefined;
-    game = this.loadGame(this.gameNum);
+    let game: any;
+    game = FibboGenerator.genEasy();
+    console.log(game);
     this.values = Object.assign([], game.board);
     this.boardTarget = game.target;
     this.difficulty = game.difficulty;
@@ -180,41 +172,7 @@ export class PlayComponent implements OnInit {
   }
 
   reset(game: number) {
-    for (let i = 0; i < 15; i++) {
-      this.state[i] = 0;
-    }
-    let g: any = this.loadGame(game);
-    this.values = Object.assign([], g.board);
-    this.difficulty = g.difficulty;
-    this.boardTarget = g.target;
-    this.numMoves = 0;
-    this.moveStack = [];
-    this.start = undefined;
-    this.middle = undefined;
-    this.target = undefined;
-    this.solved = false;
-  }
 
-  loadGame(game: number) {
-    if (game === 1) {
-      this.gameNum = 1;
-      return Games.game1;
-    } else if (game === 2) {
-      this.gameNum = 2;
-      return Games.game2;
-    } else if (game === 3) {
-      this.gameNum = 3;
-      return Games.game3;
-    } else if (game === 4) {
-      this.gameNum = 4;
-      return Games.game4;
-    } else if (game === 5) {
-      this.gameNum = 5;
-      return Games.game5;
-    } else {
-      this.gameNum = 6;
-      return Games.game6;
-    }
   }
 
   checkSolved() {
@@ -226,12 +184,20 @@ export class PlayComponent implements OnInit {
     return true;
   }
 
-  nextGame(gameNum: number) {
-    if (gameNum > 6) { gameNum = 1;}
-    let url = '/play/';
-    url += gameNum.toString();
-    this.router.navigate([url]);
-    this.reset(gameNum);
+  nextGame() {
+    for (let i = 0; i < 15; i++) {
+      this.state[i] = 0;
+    }
+    let g: any = FibboGenerator.genEasy();
+    this.values = Object.assign([], g.board);
+    this.difficulty = g.difficulty;
+    this.boardTarget = g.target;
+    this.numMoves = 0;
+    this.moveStack = [];
+    this.start = undefined;
+    this.middle = undefined;
+    this.target = undefined;
+    this.solved = false;
   }
 
 }
