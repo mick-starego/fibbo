@@ -8,8 +8,19 @@
         <div class="sidebar">
             <div class="info">
                 <div class="target">
-                    <span class="header">target</span>
-                    <app-display-node class="display-node" [value]="boardTarget"></app-display-node>
+                    <span
+                      class="header"
+                      [style.color]="targetState === 1 ? '#d4a600' : ''"
+                    >
+                      target
+                    </span>
+                      <app-display-node
+                        class="display-node target-node"
+                        (click)="onTargetClick()"
+                        [value]="boardTarget"
+                        [state]="targetState"
+                      >
+                      </app-display-node>
                 </div>
                 <div class="difficulty">
                     <span class="header">difficulty</span>

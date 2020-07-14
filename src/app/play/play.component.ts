@@ -21,6 +21,7 @@ export class PlayComponent implements OnInit {
   state: number[] = [];
   invalid: number;
   solved: boolean;
+  targetState = 0;
 
   boardTarget: number;
   difficulty: string;
@@ -198,6 +199,22 @@ export class PlayComponent implements OnInit {
     this.middle = undefined;
     this.target = undefined;
     this.solved = false;
+    this.targetState = 0;
+  }
+
+  onTargetClick() {
+    let nextTarget: number;
+    if (FibboGenerator.EASY_TARGET === 89) {
+      nextTarget = 55;
+    } else if (FibboGenerator.EASY_TARGET === 55) {
+      nextTarget = 34;
+    } else {
+      nextTarget = 89;
+    }
+
+    FibboGenerator.EASY_TARGET = nextTarget;
+    this.boardTarget = nextTarget;
+    this.targetState = 1;
   }
 
 }
