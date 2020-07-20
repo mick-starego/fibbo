@@ -1,0 +1,20 @@
+<span mat-dialog-title class="title">Warning</span>
+
+<div mat-dialog-content>
+  Current game progress will be lost
+</div>
+<div class="dialog-container">
+  <button
+    class="mat-raised-button play-button"
+    [mat-dialog-close]="true"
+  >
+    Continue
+  </button>
+  <button
+    mat-stroked-button
+    class="cancel-button"
+    (click)="onNoClick()"
+  >
+    Cancel
+  </button>
+</div>

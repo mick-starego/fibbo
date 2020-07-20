@@ -12,6 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DisplayNodeComponent } from './display-node/display-node.component';
 import { TestComponent } from './game-gen/test/test.component';
+import {PlayOptionsDialog} from "./play/options-dialog/play-options-dialog.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {PlayWarningDialog} from "./play/warning-dialog/play-warning-dialog.component";
 
 @NgModule({
   declarations: [
@@ -20,7 +25,9 @@ import { TestComponent } from './game-gen/test/test.component';
     PlayComponent,
     NodeComponent,
     DisplayNodeComponent,
-    TestComponent
+    TestComponent,
+    PlayOptionsDialog,
+    PlayWarningDialog
   ],
   imports: [
     BrowserModule,
@@ -28,9 +35,16 @@ import { TestComponent } from './game-gen/test/test.component';
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonToggleModule
   ],
   providers: [],
+  entryComponents: [
+    PlayOptionsDialog,
+    PlayWarningDialog
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

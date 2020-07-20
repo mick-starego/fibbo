@@ -1,0 +1,55 @@
+.title {
+  font-family: 'Nunito';
+  color: #663100;
+  weight: 900;
+  font-size: x-large;
+}
+
+.dialog-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.toggle {
+  width: 100%;
+
+  .option {
+    width: 25%;
+    font-family: 'Nunito';
+    font-weight: 900;
+    font-size: 12pt;
+  }
+
+
+  .beginner {
+    color: #54b04d;
+  }
+
+  .novice {
+    color: #2c8dc9;
+  }
+
+  .advanced {
+    color: #d18f2c;
+  }
+
+  .expert {
+    color: #c41704;
+  }
+}
+
+.play-button {
+  background-color: #63ba68;
+  color: white;
+  //border: 1px solid #9e6836;
+  margin-right: 10px;
+  font-family: 'Nunito';
+  font-weight: 900;
+}
+
+.cancel-button {
+  color: #663100;
+  font-family: 'Nunito';
+  font-weight: 900;
+}

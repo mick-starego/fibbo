@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {PegGenerator} from "../PegGenerator";
-import {PegBoard} from "../PegBoard";
-import {FibboGenerator} from "../FibboGenerator";
+import {Queue} from "../Queue";
+import {FibboQueue} from "../FibboQueue";
+import {Constants} from "../../utils/Constants";
+import {FibboBoard} from "../FibboBoard";
 
 @Component({
   selector: 'app-test',
@@ -10,12 +11,43 @@ import {FibboGenerator} from "../FibboGenerator";
 })
 export class TestComponent implements OnInit {
 
-  constructor() { }
+  data: number[];
+  queue: Queue<number>;
+
+  constructor() {
+    this.data = [];
+    this.queue = new Queue<number>();
+  }
 
   ngOnInit(): void { }
 
-  switchBoard() {
-    console.log(FibboGenerator.genEasy());
+  initQueue() {
+    FibboQueue.initialize();
+    FibboQueue.log();
+  }
+
+  getBeginner() {
+    const game = FibboQueue.getGame(Constants.BEGINNER_DIFFICULTY);
+    console.log(FibboBoard.buildFromGame(game).toString());
+    FibboQueue.log();
+  }
+
+  getNovice() {
+    const game = FibboQueue.getGame(Constants.NOVICE_DIFFICULTY);
+    console.log(FibboBoard.buildFromGame(game).toString());
+    FibboQueue.log();
+  }
+
+  getAdvanced() {
+    const game = FibboQueue.getGame(Constants.ADVANCED_DIFFICULTY);
+    console.log(FibboBoard.buildFromGame(game).toString());
+    FibboQueue.log();
+  }
+
+  getExpert() {
+    const game = FibboQueue.getGame(Constants.EXPERT_DIFFICULTY);
+    console.log(FibboBoard.buildFromGame(game).toString());
+    FibboQueue.log();
   }
 
 }

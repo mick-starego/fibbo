@@ -1,3 +1,10 @@
 <div>
-  <button mat-button (click)="switchBoard()">Button</button>
+  <button mat-button (click)="initQueue()">Init</button>
+  <button mat-button (click)="getBeginner()">Beginner</button>
+  <button mat-button (click)="getNovice()">Novice</button>
+  <button mat-button (click)="getAdvanced()">Advanced</button>
+  <button mat-button (click)="getExpert()">Expert</button>
+</div>
+<div *ngFor="let d of data">
+  <span>{{d}}</span>
 </div>

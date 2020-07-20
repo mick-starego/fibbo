@@ -1,0 +1,26 @@
+.title {
+  font-family: 'Nunito';
+  color: #c41704;
+  weight: 900;
+  font-size: x-large;
+}
+
+.dialog-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.play-button {
+  margin-right: 10px;
+  background-color: #63ba68;
+  color: white;
+  font-family: 'Nunito';
+  font-weight: 900;
+}
+
+.cancel-button {
+  color: #663100;
+  font-family: 'Nunito';
+  font-weight: 900;
+}

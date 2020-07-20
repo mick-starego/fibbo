@@ -6,10 +6,9 @@ import {Game} from "./Game";
 
 export class FibboGenerator {
 
-  static EASY_TARGET = 89;
   static readonly SEQUENCE = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
 
-  static genEasy(): Game {
+  static generate(target: number): Game {
 
     const fibboBoard = new FibboBoard();
     const pegSolution = PegGenerator.getPegSolution();
@@ -22,7 +21,7 @@ export class FibboGenerator {
       diff = PegBoard.getBoardDifference(pegSolution[i - 1], pegSolution[i]);
 
       if (i === 13) {
-        fibboBoard.set(diff.added, FibboGenerator.EASY_TARGET);
+        fibboBoard.set(diff.added, target);
       }
 
       splitResult = FibboGenerator.split(fibboBoard.get(diff.added));
@@ -38,10 +37,11 @@ export class FibboGenerator {
       fibboBoard.set(diff.firstRemoved, splitResult[0]);
       fibboBoard.set(diff.secondRemoved, splitResult[1]);
     }
+
     return {
       board: fibboBoard.board,
-      difficulty: 'e',
-      target: this.EASY_TARGET
+      difficulty: 'h',
+      target: target
     };
   }
 

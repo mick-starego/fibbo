@@ -9,7 +9,7 @@ import {TestComponent} from "./game-gen/test/test.component";
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'play', component: PlayComponent },
-  // { path: 'test', component: TestComponent }
+  { path: 'test', component: TestComponent }
 ];
 
 @NgModule({

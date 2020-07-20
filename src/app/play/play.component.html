@@ -1,9 +1,26 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 <div class="page">
     <div class="column">
         <div class="title-container">
             <span class="title">fibbo</span>
-            <button mat-stroked-button class="button" (click)="nextGame()">New Game</button>
+            <div class="button-container">
+              <button
+                #optionsButton
+                mat-button
+                class="settings-button"
+                (click)="openNewGameDialog()"
+              >
+                Options
+              </button>
+              <button
+                #newGameButton
+                mat-raised-button
+                class="new-game-button"
+                (click)="onShuffleClicked()"
+              >
+                New Game
+              </button>
+            </div>
         </div>
         <div class="sidebar">
             <div class="info">
@@ -16,7 +33,6 @@
                     </span>
                       <app-display-node
                         class="display-node target-node"
-                        (click)="onTargetClick()"
                         [value]="boardTarget"
                         [state]="targetState"
                       >
@@ -24,9 +40,10 @@
                 </div>
                 <div class="difficulty">
                     <span class="header">difficulty</span>
-                    <span *ngIf="difficulty === 'e'" class="easy">easy</span>
-                    <span *ngIf="difficulty === 'm'" class="medium">medium</span>
-                    <span *ngIf="difficulty === 'h'" class="hard">hard</span>
+                    <span *ngIf="difficulty === BEGINNER" class="beginner">beginner</span>
+                    <span *ngIf="difficulty === NOVICE" class="novice">novice</span>
+                    <span *ngIf="difficulty === ADVANCED" class="advanced">advanced</span>
+                    <span *ngIf="difficulty === EXPERT" class="expert">expert</span>
                 </div>
                 <div class="rows">
                     <span class="header">rows</span>
@@ -34,22 +51,26 @@
                 </div>
             </div>
             <span class="sequence-header">the sequence</span>
-            <app-display-node class="display-node" [value]="1"></app-display-node>
-            <app-display-node class="display-node" [value]="2"></app-display-node>
-            <app-display-node class="display-node" [value]="3"></app-display-node>
-            <app-display-node class="display-node" [value]="5"></app-display-node>
-            <app-display-node class="display-node" [value]="8"></app-display-node>
-            <app-display-node class="display-node" [value]="13"></app-display-node>
-            <app-display-node class="display-node" [value]="21"></app-display-node>
-            <app-display-node class="display-node" [value]="34"></app-display-node>
-            <app-display-node class="display-node" [value]="55"></app-display-node>
-            <app-display-node class="display-node" [value]="89"></app-display-node>
+            <div class="sequence">
+              <app-display-node class="display-node" [value]="0"></app-display-node>
+              <app-display-node class="display-node" [value]="1"></app-display-node>
+              <app-display-node class="display-node" [value]="1"></app-display-node>
+              <app-display-node class="display-node" [value]="2"></app-display-node>
+              <app-display-node class="display-node" [value]="3"></app-display-node>
+              <app-display-node class="display-node" [value]="5"></app-display-node>
+              <app-display-node class="display-node" [value]="8"></app-display-node>
+              <app-display-node class="display-node" [value]="13"></app-display-node>
+              <app-display-node class="display-node" [value]="21"></app-display-node>
+              <app-display-node class="display-node" [value]="34"></app-display-node>
+              <app-display-node class="display-node" [value]="55"></app-display-node>
+              <app-display-node class="display-node" [value]="89"></app-display-node>
+            </div>
         </div>
         <div class="container" (click)="clickAway()" tabindex="0" (keydown.backspace)="undo()">
             <!-- <app-node [value]="4"></app-node> -->
             <div class="row">
                 <app-node class="top node" [value]="values[0]" [selected]='state[0]' (mouseout)="onMouseOut(0)" (mouseover)="onHover(0)" (click)="onClick(0)"></app-node>
-                <mat-icon aria-hidden="false" (click)="undo()" class="undo">undo</mat-icon>
+              <div class="undo" (click)="undo()"><mat-icon class="icon" aria-hidden="false">undo</mat-icon></div>
             </div>
             <div class="row">
                 <app-node class="node" [value]="values[1]" [selected]='state[1]' (mouseout)="onMouseOut(1)" (mouseover)="onHover(1)" (click)="onClick(1)"></app-node>
@@ -74,14 +95,6 @@
                 <app-node class="node" [value]="values[14]" [selected]='state[14]' (mouseout)="onMouseOut(14)" (mouseover)="onHover(14)" (click)="onClick(14)"></app-node>
             </div>
         </div>
-        <!-- <div *ngIf="solved; else unsolved" class="button-container">
-            <button mat-flat-button (click)="nextGame()" class="button green">Next Game</button>
-        </div>
-        <ng-template #unsolved>
-            <div class="button-container">
-                
-            </div>
-        </ng-template> -->
     </div>
 </div>
 

@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {FibboGenerator} from "../game-gen/FibboGenerator";
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FibboDifficulty} from "../game-gen/FibboDifficulty";
+import {Constants} from "../utils/Constants";
+import {Game} from "../game-gen/Game";
+import {FibboQueue} from "../game-gen/FibboQueue";
+import {MatDialog} from "@angular/material/dialog";
+import {PlayOptionsDialog} from "./options-dialog/play-options-dialog.component";
+import {PlayWarningDialog} from "./warning-dialog/play-warning-dialog.component";
 
 @Component({
   selector: 'app-play',
@@ -7,6 +13,14 @@ import {FibboGenerator} from "../game-gen/FibboGenerator";
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnInit {
+
+  readonly BEGINNER = Constants.BEGINNER_DIFFICULTY;
+  readonly NOVICE = Constants.NOVICE_DIFFICULTY;
+  readonly ADVANCED = Constants.ADVANCED_DIFFICULTY;
+  readonly EXPERT = Constants.EXPERT_DIFFICULTY;
+
+  @ViewChild('optionsButton') optionsButton: ElementRef;
+  @ViewChild('newGameButton') newGameButton: ElementRef;
 
   values: number[];
   directions: number[][];
@@ -26,16 +40,17 @@ export class PlayComponent implements OnInit {
   boardTarget: number;
   difficulty: string;
 
-  constructor() {
-    this.directions = [[undefined, 3, 4, 5, undefined, 6, 7, 8, 9, undefined, 10, 11, 12, 13, 14],
-                       [undefined, 3, 7, 12, undefined, 1, 4, 8, 13, undefined, 0, 2, 5, 9, 14],
-                       [undefined, 5, 8, 12, undefined, 2, 4, 7, 11, undefined, 0, 1, 3, 6, 10]];
+  constructor(
+    public dialog: MatDialog,
+    public changeDetectorRef: ChangeDetectorRef
+  ) {
+    this.directions = FibboDifficulty.DIRECTIONS;
     this.fibbSeq = [0,1,2,3,5,8,13,21,34,55,89];
 
     this.start = undefined;
     this.middle = undefined;
     this.target = undefined;
-    this.boardTarget = undefined;
+    this.boardTarget = 89;
     this.difficulty = undefined;
     this.solved = false;
     for (let i = 0; i < 15; i++) {
@@ -44,9 +59,11 @@ export class PlayComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let game: any;
-    game = FibboGenerator.genEasy();
-    console.log(game);
+    FibboQueue.initialize();
+    console.log('Queue Initialized');
+    FibboQueue.log();
+    let game: Game;
+    game = FibboQueue.getGame(Constants.BEGINNER_DIFFICULTY);
     this.values = Object.assign([], game.board);
     this.boardTarget = game.target;
     this.difficulty = game.difficulty;
@@ -138,7 +155,16 @@ export class PlayComponent implements OnInit {
   }
 
   targetIsValid(id: number) {
-    return this.fibbSeq.indexOf(this.values[this.start] + this.values[this.middle]) > -1;
+    const sumValid = this.fibbSeq.indexOf(this.values[this.start] + this.values[this.middle]) > -1;
+    let validZeroJumping = true;
+
+    if (this.values[this.start] === 0 && this.values[this.middle] > 1) {
+      validZeroJumping = false;
+    } else if (this.values[this.middle] === 0 && this.values[this.start] > 1) {
+      validZeroJumping = false;
+    }
+
+    return sumValid && validZeroJumping && this.values[id] === -1;
   }
 
   getMiddle(targetId: number): number {
@@ -172,10 +198,6 @@ export class PlayComponent implements OnInit {
     this.updateState();
   }
 
-  reset(game: number) {
-
-  }
-
   checkSolved() {
     for (let i = 0; i < 15; i++) {
       if (this.values[i] >= 0 && this.values[i] !== this.boardTarget) {
@@ -185,11 +207,11 @@ export class PlayComponent implements OnInit {
     return true;
   }
 
-  nextGame() {
+  newGame(difficulty: string) {
     for (let i = 0; i < 15; i++) {
       this.state[i] = 0;
     }
-    let g: any = FibboGenerator.genEasy();
+    let g: any = FibboQueue.getGame(difficulty);
     this.values = Object.assign([], g.board);
     this.difficulty = g.difficulty;
     this.boardTarget = g.target;
@@ -202,19 +224,35 @@ export class PlayComponent implements OnInit {
     this.targetState = 0;
   }
 
-  onTargetClick() {
-    let nextTarget: number;
-    if (FibboGenerator.EASY_TARGET === 89) {
-      nextTarget = 55;
-    } else if (FibboGenerator.EASY_TARGET === 55) {
-      nextTarget = 34;
-    } else {
-      nextTarget = 89;
-    }
+  openNewGameDialog(): void {
+    const dialogRef = this.dialog.open(PlayOptionsDialog, {
+      width: '450px'
+    });
 
-    FibboGenerator.EASY_TARGET = nextTarget;
-    this.boardTarget = nextTarget;
-    this.targetState = 1;
+    dialogRef.afterClosed().subscribe(difficulty => {
+      if (difficulty) {
+        this.newGame(difficulty);
+      }
+      this.optionsButton['_elementRef'].nativeElement.blur();
+    });
+  }
+
+  onShuffleClicked(): void {
+    if (this.numMoves !== 0) {
+
+      const dialogRef = this.dialog.open(PlayWarningDialog, {
+        width: '450px'
+      });
+
+      dialogRef.afterClosed().subscribe(response => {
+        if (response) {
+          this.newGame(this.difficulty);
+        }
+        this.newGameButton['_elementRef'].nativeElement.blur();
+      })
+    } else {
+      this.newGame(this.difficulty);
+    }
   }
 
 }

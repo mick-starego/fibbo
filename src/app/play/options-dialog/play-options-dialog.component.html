@@ -1,0 +1,53 @@
+
+<span mat-dialog-title class="title">Options</span>
+
+<div mat-dialog-content>
+  <mat-button-toggle-group
+    [(ngModel)]="selection"
+    class="toggle"
+    name="difficulty-select"
+    aria-label="Difficulty Select"
+  >
+    <mat-button-toggle
+      class="option beginner"
+      [value]="BEGINNER"
+    >
+      beginner
+    </mat-button-toggle>
+    <mat-button-toggle
+      class="option novice"
+      [value]="NOVICE"
+    >
+      novice
+    </mat-button-toggle>
+    <mat-button-toggle
+      class="option advanced"
+      [value]="ADVANCED"
+    >
+      advanced
+    </mat-button-toggle>
+    <mat-button-toggle
+      class="option expert"
+      [value]="EXPERT"
+    >
+      expert
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div class="dialog-container">
+  <button
+    mat-raised-button
+    class="play-button"
+    [mat-dialog-close]="selection"
+    [disabled]="selection === null"
+  >
+    New Game
+  </button>
+  <button
+    mat-stroked-button
+    class="cancel-button"
+    (click)="onNoClick()"
+  >
+    Cancel
+  </button>
+</div>

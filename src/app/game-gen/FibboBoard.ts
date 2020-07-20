@@ -1,3 +1,5 @@
+import {Game} from "./Game";
+
 export class FibboBoard {
   board: number[];
   difficulty: string;
@@ -10,6 +12,15 @@ export class FibboBoard {
     }
     this.difficulty = null;
     this.target = null;
+  }
+
+  static buildFromGame(game: Game): FibboBoard {
+    const board = new FibboBoard();
+    board.board = game.board;
+    board.difficulty = game.difficulty;
+    board.target = game.target;
+
+    return board;
   }
 
   get(index: number): number {
@@ -33,7 +44,7 @@ export class FibboBoard {
       }
 
       for (let i = 0; i < rowSize + 1; i++) {
-        if (this.board[currentIndex] !== null) {
+        if (this.board[currentIndex] !== -1) {
           boardString += this.board[currentIndex];
         } else {
           boardString += '.';
