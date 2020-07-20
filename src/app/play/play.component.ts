@@ -237,8 +237,8 @@ export class PlayComponent implements OnInit {
     });
   }
 
-  onShuffleClicked(): void {
-    if (this.numMoves !== 0) {
+  onNewGameClicked(): void {
+    if (this.numMoves !== 0 && !this.solved) {
 
       const dialogRef = this.dialog.open(PlayWarningDialog, {
         width: '450px'
