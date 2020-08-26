@@ -1,8 +1,8 @@
 
 export class Queue<T> {
-  queue: T[];
-  headIndex: number;
-  size: number;
+  private queue: T[];
+  private headIndex: number;
+  private size: number;
 
   constructor() {
     this.queue = [];
@@ -15,7 +15,7 @@ export class Queue<T> {
   }
 
   dequeue(): T {
-    if (this.size > 0) {
+    if (this.size > 1) {
       const item: T = this.queue[this.headIndex];
       this.queue[this.headIndex] = null;
       this.size--;
@@ -28,6 +28,18 @@ export class Queue<T> {
         this.queue = this.queue.slice(this.headIndex, this.queue.length - 1);
         this.headIndex = 0;
       }
+
+      if (item === null) {
+        console.log('here');
+      }
+
+      return item;
+
+    } else if (this.size === 1) {
+      const item: T = this.queue[this.headIndex];
+      this.size = 0;
+      this.queue = [];
+      this.headIndex = 0;
 
       return item;
     }
@@ -44,5 +56,16 @@ export class Queue<T> {
 
   getSize(): number {
     return this.size;
+  }
+
+  toString(): string {
+    let qString = 'queue:\n';
+    for (let i = 0; i < this.queue.length; i++) {
+      qString += '\t' + i + ': ' + this.queue[i] + '\n';
+    }
+    qString += 'headIndex: ' + this.headIndex + '\n';
+    qString += 'size: ' + this.size;
+
+    return qString;
   }
 }

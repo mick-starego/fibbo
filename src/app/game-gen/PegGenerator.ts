@@ -1,11 +1,13 @@
 import { PegData } from "./peg_solns";
 import { PegBoard } from "./PegBoard";
+import {LCRNG} from "./LCRNG";
 
 export class PegGenerator {
 
   static readonly START_BOARD = 131070;
 
   static getPegSolution(): PegBoard[] {
+
     const solution: PegBoard[] = [];
     let currentBoard = PegGenerator.START_BOARD;
     let numChildren = PegData
@@ -16,7 +18,7 @@ export class PegGenerator {
     while (numChildren > 0) {
       currentBoard = PegData
         .DATA
-        .get(currentBoard)[Math.floor(Math.random() * numChildren)];
+        .get(currentBoard)[Math.floor(LCRNG.random() * numChildren)];
       solution.push(new PegBoard(currentBoard));
 
       numChildren = PegData

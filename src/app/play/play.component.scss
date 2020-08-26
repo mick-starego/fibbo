@@ -150,7 +150,7 @@
     padding-right: 10px;
     height: 50px;
 
-    .beginner {
+    .easy {
         width: fit-content;
         font-family: "Nunito";
         color: #54b04d;
@@ -159,16 +159,16 @@
         -webkit-user-select: none;
     }
 
-    .novice {
+    .medium {
         width: fit-content;
         font-family: "Nunito";
-        color: #2c8dc9;
+        color: #d18f2c;
         font-size: 15pt;
         font-weight: 700;
         -webkit-user-select: none;
     }
 
-    .expert {
+    .evil {
         width: fit-content;
         font-family: "Nunito";
         color: #c41704;
@@ -177,10 +177,10 @@
         -webkit-user-select: none;
     }
 
-    .advanced {
+    .hard {
       width: fit-content;
       font-family: "Nunito";
-      color: #d18f2c;
+      color: #5e0523;
       font-size: 15pt;
       font-weight: 700;
       -webkit-user-select: none;

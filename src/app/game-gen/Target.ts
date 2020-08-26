@@ -1,3 +1,4 @@
+import {LCRNG} from "./LCRNG";
 
 export class Target {
   prob89: number;
@@ -24,7 +25,7 @@ export class Target {
   get() {
     const upperBound89 = this.prob89;
     const upperBound55 = this.prob89 + this.prob55;
-    const rand = Math.random();
+    const rand = LCRNG.random();
 
     if (rand >= 0 && rand < upperBound89) {
       return 89;

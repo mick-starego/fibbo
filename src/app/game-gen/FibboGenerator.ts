@@ -3,12 +3,22 @@ import {PegGenerator} from "./PegGenerator";
 import {PegBoard} from "./PegBoard";
 import {PegDiff} from "./PegDiff";
 import {Game} from "./Game";
+import {LCRNG} from "./LCRNG";
 
 export class FibboGenerator {
 
   static readonly SEQUENCE = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
 
-  static generate(target: number): Game {
+  static generate(target: number, seed: number = LCRNG.getIntFromMathRand()): Game {
+
+    let game: Game = {
+      board: null,
+      seed: seed,
+      difficulty: '',
+      target: target
+    };
+
+    LCRNG.setSeed(seed);
 
     const fibboBoard = new FibboBoard();
     const pegSolution = PegGenerator.getPegSolution();
@@ -27,7 +37,7 @@ export class FibboGenerator {
       splitResult = FibboGenerator.split(fibboBoard.get(diff.added));
 
       // Half the time, swap these values
-      if (Math.random() < 0.5) {
+      if (LCRNG.random() < 0.5) {
         const temp = splitResult[1];
         splitResult[1] = splitResult[0];
         splitResult[0] = temp;
@@ -38,11 +48,9 @@ export class FibboGenerator {
       fibboBoard.set(diff.secondRemoved, splitResult[1]);
     }
 
-    return {
-      board: fibboBoard.board,
-      difficulty: 'h',
-      target: target
-    };
+    game.board = fibboBoard.board;
+
+    return game;
   }
 
   private static split(value: number): number[] {

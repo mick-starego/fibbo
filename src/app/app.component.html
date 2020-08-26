@@ -1,10 +1,15 @@
 <header>
     <div class="container">
-        <a href="#" class="logo no-select">fibbo</a>
+        <a routerLink="/home" class="logo no-select">fibbo</a>
         <nav>
             <ul>
                 <li>
-                    <a href="#" routerLink="/play/" class="no-select">Play</a>
+                    <a
+                      [routerLink]="gameRoute"
+                      class="no-select"
+                    >
+                      Play
+                    </a>
                 </li>
             </ul>
         </nav>

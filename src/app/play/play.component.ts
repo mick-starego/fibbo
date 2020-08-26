@@ -1,11 +1,13 @@
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FibboDifficulty} from "../game-gen/FibboDifficulty";
 import {Constants} from "../utils/Constants";
-import {Game} from "../game-gen/Game";
+import {Game, GameEncoder} from "../game-gen/Game";
 import {FibboQueue} from "../game-gen/FibboQueue";
 import {MatDialog} from "@angular/material/dialog";
 import {PlayOptionsDialog} from "./options-dialog/play-options-dialog.component";
 import {PlayWarningDialog} from "./warning-dialog/play-warning-dialog.component";
+import {LCRNG} from "../game-gen/LCRNG";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-play',
@@ -14,10 +16,10 @@ import {PlayWarningDialog} from "./warning-dialog/play-warning-dialog.component"
 })
 export class PlayComponent implements OnInit {
 
-  readonly BEGINNER = Constants.BEGINNER_DIFFICULTY;
-  readonly NOVICE = Constants.NOVICE_DIFFICULTY;
-  readonly ADVANCED = Constants.ADVANCED_DIFFICULTY;
-  readonly EXPERT = Constants.EXPERT_DIFFICULTY;
+  readonly EASY = Constants.EASY_DIFFICULTY;
+  readonly MEDIUM = Constants.MEDIUM_DIFFICULTY;
+  readonly HARD = Constants.HARD_DIFFICULTY;
+  readonly EVIL = Constants.EVIL_DIFFICULTY;
 
   @ViewChild('optionsButton') optionsButton: ElementRef;
   @ViewChild('newGameButton') newGameButton: ElementRef;
@@ -42,7 +44,9 @@ export class PlayComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public changeDetectorRef: ChangeDetectorRef
+    public changeDetectorRef: ChangeDetectorRef,
+    public route: ActivatedRoute,
+    public router: Router
   ) {
     this.directions = FibboDifficulty.DIRECTIONS;
     this.fibbSeq = [0,1,2,3,5,8,13,21,34,55,89];
@@ -56,18 +60,13 @@ export class PlayComponent implements OnInit {
     for (let i = 0; i < 15; i++) {
       this.state[i] = 0;
     }
+
+    this.route.params.subscribe((params) => {
+      this.loadGame(GameEncoder.buildFromCodeString(params['code']));
+    });
   }
 
-  ngOnInit(): void {
-    FibboQueue.initialize();
-    console.log('Queue Initialized');
-    FibboQueue.log();
-    let game: Game;
-    game = FibboQueue.getGame(Constants.BEGINNER_DIFFICULTY);
-    this.values = Object.assign([], game.board);
-    this.boardTarget = game.target;
-    this.difficulty = game.difficulty;
-  }
+  ngOnInit(): void { }
 
   onClick(id: number) {
     if (this.start === id) {
@@ -208,13 +207,18 @@ export class PlayComponent implements OnInit {
   }
 
   newGame(difficulty: string) {
+    let game: any = FibboQueue.getGame(difficulty);
+    this.router.navigate(['play', GameEncoder.generateCodeString(game.seed, game.target)]);
+  }
+
+  loadGame(game: Game): void {
     for (let i = 0; i < 15; i++) {
       this.state[i] = 0;
     }
-    let g: any = FibboQueue.getGame(difficulty);
-    this.values = Object.assign([], g.board);
-    this.difficulty = g.difficulty;
-    this.boardTarget = g.target;
+
+    this.values = Object.assign([], game.board);
+    this.difficulty = game.difficulty;
+    this.boardTarget = game.target;
     this.numMoves = 0;
     this.moveStack = [];
     this.start = undefined;

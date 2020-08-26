@@ -7,8 +7,9 @@ import {TestComponent} from "./game-gen/test/test.component";
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'play', component: PlayComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'play/:code', component: PlayComponent },
   { path: 'test', component: TestComponent }
 ];
 

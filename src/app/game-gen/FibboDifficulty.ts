@@ -19,40 +19,52 @@ export class FibboDifficulty {
   static getDifficulty(game: Game): string {
     let difficulty = this.calcDifficulty(game);
 
-    if (
+    if (difficulty === -1) {
+      return Constants.UNSOLVABLE_GAME;
+
+    } else if (
       difficulty < this.NOVICE_LOWER_BOUND
     ) {
-      return Constants.BEGINNER_DIFFICULTY;
+      return Constants.EASY_DIFFICULTY;
 
     } else if (
       difficulty >= this.NOVICE_LOWER_BOUND &&
       difficulty < this.NOVICE_UPPER_BOUND
     ) {
-      return Constants.NOVICE_DIFFICULTY;
+      return Constants.MEDIUM_DIFFICULTY;
 
     } else if (
       difficulty >= this.ADVANCED_LOWER_BOUND &&
       difficulty < this.ADVANCED_UPPER_BOUND
     ) {
-      return Constants.ADVANCED_DIFFICULTY;
+      return Constants.HARD_DIFFICULTY;
 
     } else {
-      return Constants.EXPERT_DIFFICULTY;
+      return Constants.EVIL_DIFFICULTY;
     }
   }
 
   private static calcDifficulty(game: Game): number {
 
     const deadEndSet = new Set<number>();
-    this.backtrack(
+    const solved = this.backtrack(
       Object.assign(game.board, []),
+      false,
       deadEndSet
     );
 
-    return deadEndSet.size;
+    if (solved) {
+      return deadEndSet.size;
+    } else {
+      return -1;
+    }
   }
 
-  private static backtrack(board: number[], deadEndSet: Set<number>): void {
+  private static backtrack(
+    board: number[],
+    solved: boolean,
+    deadEndSet: Set<number>
+  ): boolean {
 
     let dir: number[];
     let deadEnd = true;
@@ -87,7 +99,7 @@ export class FibboDifficulty {
           board[dir[i]] = -1;
           board[dir[i + 1]] = -1;
 
-          this.backtrack(board, deadEndSet);
+          solved = this.backtrack(board, solved, deadEndSet);
 
           board[dir[i]] = holdOne;
           board[dir[i + 1]] = holdTwo;
@@ -113,7 +125,7 @@ export class FibboDifficulty {
           board[dir[i + 1]] = -1;
           board[dir[i + 2]] = -1;
 
-          this.backtrack(board, deadEndSet);
+          solved = this.backtrack(board, solved, deadEndSet);
 
           board[dir[i + 1]] = holdOne;
           board[dir[i + 2]] = holdTwo;
@@ -136,7 +148,11 @@ export class FibboDifficulty {
 
       if (count !== 1) {
         deadEndSet.add(hash);
+      } else {
+        solved = true;
       }
     }
+
+    return solved;
   }
 }

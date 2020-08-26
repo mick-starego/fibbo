@@ -1,16 +1,17 @@
 
 export class Constants {
 
-  static BEGINNER_DIFFICULTY = 'BEGINNER';
-  static NOVICE_DIFFICULTY = 'NOVICE';
-  static ADVANCED_DIFFICULTY = 'ADVANCED';
-  static EXPERT_DIFFICULTY = 'EXPERT';
+  static UNSOLVABLE_GAME = 'UNSOLVABLE';
+  static EASY_DIFFICULTY = 'EASY';
+  static MEDIUM_DIFFICULTY = 'MEDIUM';
+  static HARD_DIFFICULTY = 'HARD';
+  static EVIL_DIFFICULTY = 'EVIL';
 
   static ALL_DIFFICULTIES = [
-    Constants.BEGINNER_DIFFICULTY,
-    Constants.NOVICE_DIFFICULTY,
-    Constants.ADVANCED_DIFFICULTY,
-    Constants.EXPERT_DIFFICULTY
+    Constants.EASY_DIFFICULTY,
+    Constants.MEDIUM_DIFFICULTY,
+    Constants.HARD_DIFFICULTY,
+    Constants.EVIL_DIFFICULTY
   ];
 
   static QUEUE_EMPTY = 'QUEUE_EMPTY';
@@ -18,4 +19,6 @@ export class Constants {
   static QUEUE_NOT_SATISFIED = 'QUEUE_NOT_SATISFIED';
   static QUEUE_CRITICAL = 'QUEUE_CRITICAL';
   static QUEUE_FULL = 'QUEUE_FULL';
+
+  static GEN_ONE_PATTERN = 77586305296;
 }

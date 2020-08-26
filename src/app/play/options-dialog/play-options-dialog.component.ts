@@ -9,10 +9,10 @@ import {Constants} from "../../utils/Constants";
 })
 export class PlayOptionsDialog {
 
-  readonly BEGINNER = Constants.BEGINNER_DIFFICULTY;
-  readonly NOVICE = Constants.NOVICE_DIFFICULTY;
-  readonly ADVANCED = Constants.ADVANCED_DIFFICULTY;
-  readonly EXPERT = Constants.EXPERT_DIFFICULTY;
+  readonly EASY = Constants.EASY_DIFFICULTY;
+  readonly MEDIUM = Constants.MEDIUM_DIFFICULTY;
+  readonly HARD = Constants.HARD_DIFFICULTY;
+  readonly EVIL = Constants.EVIL_DIFFICULTY;
 
   selection: string;
 

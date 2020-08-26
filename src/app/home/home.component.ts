@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AppComponent} from "../app.component";
 
 @Component({
   selector: 'app-home',
@@ -9,14 +10,23 @@ export class HomeComponent implements OnInit {
 
   clickCounter: number = 0;
   name: string = '';
+  gameRoute = '';
 
   constructor() { }
 
   ngOnInit(): void {
+    if (AppComponent.savedGame) {
+      this.gameRoute = '/play/' + AppComponent.savedGame;
+    } else {
+      this.updateEasyGameRoute();
+    }
   }
 
-  countClick() {
-    this.clickCounter += 1;
+  /**
+   * Called onInit of home component
+   */
+  updateEasyGameRoute(): void {
+    this.gameRoute = '/play/' + AppComponent.getEasyGameKey();
   }
 
 }

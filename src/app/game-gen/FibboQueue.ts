@@ -7,10 +7,10 @@ import {Target} from "./Target";
 
 export class FibboQueue {
 
-  static BEGINNER_QUEUE = new Queue<Game>();
-  static NOVICE_QUEUE = new Queue<Game>();
-  static ADVANCED_QUEUE = new Queue<Game>();
-  static EXPERT_QUEUE = new Queue<Game>();
+  static EASY_QUEUE = new Queue<Game>();
+  static MEDIUM_QUEUE = new Queue<Game>();
+  static HARD_QUEUE = new Queue<Game>();
+  static EVIL_QUEUE = new Queue<Game>();
 
   static QUEUE_STATES = FibboQueue.initializeQueueStates();
   static SATISFIED_CAPACITY = 15;
@@ -64,9 +64,9 @@ export class FibboQueue {
         force = true;
         timeout = FibboQueue.CRITICAL_TIMEOUT;
 
-        if (difficulty === Constants.BEGINNER_DIFFICULTY) {
+        if (difficulty === Constants.EASY_DIFFICULTY) {
           target.configure(1, 0, 0);
-        } else if (difficulty === Constants.EXPERT_DIFFICULTY) {
+        } else if (difficulty === Constants.EVIL_DIFFICULTY) {
           target.configure(0, 0, 1);
         } else {
           target.configure(0, 1, 0);
@@ -76,9 +76,9 @@ export class FibboQueue {
       case Constants.QUEUE_CRITICAL:
         timeout = FibboQueue.CRITICAL_TIMEOUT;
 
-        if (difficulty === Constants.BEGINNER_DIFFICULTY) {
+        if (difficulty === Constants.EASY_DIFFICULTY) {
           target.configure(0.8, 0.2, 0);
-        } else if (difficulty === Constants.EXPERT_DIFFICULTY) {
+        } else if (difficulty === Constants.EVIL_DIFFICULTY) {
           target.configure(0, 0.2, 0.8);
         } else {
           target.configure(0.1, 0.8, 0.1);
@@ -88,9 +88,9 @@ export class FibboQueue {
       case Constants.QUEUE_NOT_SATISFIED:
         timeout = FibboQueue.STANDARD_TIMEOUT;
 
-        if (difficulty === Constants.BEGINNER_DIFFICULTY) {
+        if (difficulty === Constants.EASY_DIFFICULTY) {
           target.configure(0.6, 0.3, 0.1);
-        } else if (difficulty === Constants.EXPERT_DIFFICULTY) {
+        } else if (difficulty === Constants.EVIL_DIFFICULTY) {
           target.configure(0.1, 0.3, 0.6);
         } else {
           target.configure(0.2, 0.6, 0.2);
@@ -116,17 +116,20 @@ export class FibboQueue {
       }
 
       if (
-        queue.getSize() < FibboQueue.FULL_CAPACITY &&
-        (!force || difficulty === gameDifficulty)
+        queue.getSize() < FibboQueue.FULL_CAPACITY
       ) {
         queue.enqueue(game);
       }
     }
 
     FibboQueue.setQueueStates();
+    FibboQueue.log();
 
-    return FibboQueue.getQueue(difficulty).dequeue();
-
+    const game = FibboQueue.getQueue(difficulty).dequeue();
+    if (!game) {
+      console.error('ERROR: Null game. Check queues.');
+    }
+    return game;
   }
 
 
@@ -162,14 +165,14 @@ export class FibboQueue {
 
   static getQueue(difficulty: string): Queue<Game> {
 
-    if (difficulty === Constants.BEGINNER_DIFFICULTY) {
-      return FibboQueue.BEGINNER_QUEUE;
-    } else if (difficulty === Constants.NOVICE_DIFFICULTY) {
-      return FibboQueue.NOVICE_QUEUE;
-    } else if (difficulty === Constants.ADVANCED_DIFFICULTY) {
-      return FibboQueue.ADVANCED_QUEUE;
-    } else if (difficulty === Constants.EXPERT_DIFFICULTY) {
-      return FibboQueue.EXPERT_QUEUE;
+    if (difficulty === Constants.EASY_DIFFICULTY) {
+      return FibboQueue.EASY_QUEUE;
+    } else if (difficulty === Constants.MEDIUM_DIFFICULTY) {
+      return FibboQueue.MEDIUM_QUEUE;
+    } else if (difficulty === Constants.HARD_DIFFICULTY) {
+      return FibboQueue.HARD_QUEUE;
+    } else if (difficulty === Constants.EVIL_DIFFICULTY) {
+      return FibboQueue.EVIL_QUEUE;
     }
   }
 

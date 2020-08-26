@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Queue} from "../Queue";
 import {FibboQueue} from "../FibboQueue";
 import {Constants} from "../../utils/Constants";
-import {FibboBoard} from "../FibboBoard";
+import {Game, GameEncoder} from "../Game";
 
 @Component({
   selector: 'app-test',
@@ -19,35 +19,19 @@ export class TestComponent implements OnInit {
     this.queue = new Queue<number>();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.initQueue();
+  }
 
   initQueue() {
     FibboQueue.initialize();
-    FibboQueue.log();
   }
 
-  getBeginner() {
-    const game = FibboQueue.getGame(Constants.BEGINNER_DIFFICULTY);
-    console.log(FibboBoard.buildFromGame(game).toString());
-    FibboQueue.log();
-  }
-
-  getNovice() {
-    const game = FibboQueue.getGame(Constants.NOVICE_DIFFICULTY);
-    console.log(FibboBoard.buildFromGame(game).toString());
-    FibboQueue.log();
-  }
-
-  getAdvanced() {
-    const game = FibboQueue.getGame(Constants.ADVANCED_DIFFICULTY);
-    console.log(FibboBoard.buildFromGame(game).toString());
-    FibboQueue.log();
-  }
-
-  getExpert() {
-    const game = FibboQueue.getGame(Constants.EXPERT_DIFFICULTY);
-    console.log(FibboBoard.buildFromGame(game).toString());
-    FibboQueue.log();
+  encode() {
+    const g: Game = FibboQueue.getGame(Constants.EASY_DIFFICULTY);
+    console.log(g);
+    const key = GameEncoder.generateCodeString(g.seed, g.target);
+    console.log(GameEncoder.buildFromCodeString(key));
   }
 
 }
