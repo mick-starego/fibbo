@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Queue} from "../Queue";
 import {FibboQueue} from "../FibboQueue";
 import {Constants} from "../../utils/Constants";
-import {Game, GameEncoder} from "../Game";
+import {Game} from "../models/Game";
+import {GameEncoder} from "../GameEncoder";
 
 @Component({
   selector: 'app-test',

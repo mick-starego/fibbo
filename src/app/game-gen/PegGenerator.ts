@@ -1,4 +1,4 @@
-import { PegData } from "./peg_solns";
+import { PegData } from "./data/peg_solns";
 import { PegBoard } from "./PegBoard";
 import {LCRNG} from "./LCRNG";
 

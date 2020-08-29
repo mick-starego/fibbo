@@ -1,4 +1,4 @@
-import {PegDiff} from "./PegDiff";
+import {PegDiff} from "./models/PegDiff";
 
 export class PegBoard {
   board: boolean[];
@@ -14,7 +14,11 @@ export class PegBoard {
   }
 
   static getBoardDifference(parent: PegBoard, child: PegBoard): PegDiff {
-    const diff = new PegDiff();
+    const diff: PegDiff = {
+      added: null,
+      firstRemoved: null,
+      secondRemoved: null
+    };
     let numAdded = 0;
     let numRemoved = 0;
 
@@ -24,7 +28,7 @@ export class PegBoard {
         diff.added = i;
         numAdded++;
       } else if (parent.get(i) === true && child.get(i) === false) {
-        if (diff.firstRemoved === undefined) {
+        if (diff.firstRemoved === null) {
           diff.firstRemoved = i;
         } else {
           diff.secondRemoved = i;

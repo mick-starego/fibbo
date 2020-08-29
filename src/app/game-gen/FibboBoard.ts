@@ -1,4 +1,4 @@
-import {Game} from "./Game";
+import {Game} from "./models/Game";
 
 export class FibboBoard {
   board: number[];

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FibboQueue} from "./game-gen/FibboQueue";
 import {Constants} from "./utils/Constants";
-import {GameEncoder} from "./game-gen/Game";
+import {GameEncoder} from "./game-gen/GameEncoder";
 import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
@@ -27,11 +27,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!FibboQueue.INITIALIZED) {
-      FibboQueue.initialize();
-      console.log('Queue Initialized');
-      FibboQueue.log();
-    }
+    FibboQueue.initialize();
+    console.log('Queue Initialized');
+    FibboQueue.log();
     this.loadEasyGameRoute();
   }
 

@@ -1,5 +1,5 @@
 import {Queue} from "./Queue";
-import {Game} from "./Game";
+import {Game} from "./models/Game";
 import {Constants} from "../utils/Constants";
 import {FibboGenerator} from "./FibboGenerator";
 import {FibboDifficulty} from "./FibboDifficulty";

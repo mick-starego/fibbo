@@ -1,4 +1,4 @@
-import {Game} from "./Game";
+import {Game} from "./models/Game";
 import {FibboGenerator} from "./FibboGenerator";
 import {Constants} from "../utils/Constants";
 

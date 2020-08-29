@@ -1,14 +1,8 @@
 import {Constants} from "../utils/Constants";
+import {LCRNG} from "./LCRNG";
 import {FibboGenerator} from "./FibboGenerator";
 import {FibboDifficulty} from "./FibboDifficulty";
-import {LCRNG} from "./LCRNG";
-
-export interface Game {
-  board: number[];
-  difficulty: string;
-  target: number;
-  seed: number;
-}
+import {Game} from "./models/Game";
 
 export class GameEncoder {
 
@@ -48,7 +42,6 @@ export class GameEncoder {
       keyWithTarget *= 2;
       if (keyWithTargetArray.pop()) keyWithTarget++;
     }
-
 
     // Determine the expected value of key using seed
     let expectedKey = 0;
@@ -146,7 +139,7 @@ export class GameEncoder {
 
     // Add target to keyWithTargetArray
     const keyWithTargetArray: boolean[] = [];
-    for (let i = 0 ; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
       if (i === 7 - indexLSB) {
         keyWithTargetArray.push(targetCode % 2 === 1);
 
@@ -242,8 +235,7 @@ export class GameEncoder {
     keyWithTarget: number,
     expectedKey: number,
     indexLSB: number,
-    indexMSB: number ): number
-  {
+    indexMSB: number): number {
 
     // Separate targetCode and key
     let targetCode = 0;
@@ -378,4 +370,4 @@ export class GameEncoder {
         return null;
     }
   }
- }
+}

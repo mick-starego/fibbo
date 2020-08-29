@@ -1,8 +1,8 @@
 import {FibboBoard} from "./FibboBoard";
 import {PegGenerator} from "./PegGenerator";
 import {PegBoard} from "./PegBoard";
-import {PegDiff} from "./PegDiff";
-import {Game} from "./Game";
+import {PegDiff} from "./models/PegDiff";
+import {Game} from "./models/Game";
 import {LCRNG} from "./LCRNG";
 
 export class FibboGenerator {

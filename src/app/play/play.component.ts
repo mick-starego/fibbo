@@ -1,13 +1,13 @@
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FibboDifficulty} from "../game-gen/FibboDifficulty";
 import {Constants} from "../utils/Constants";
-import {Game, GameEncoder} from "../game-gen/Game";
+import {Game} from "../game-gen/models/Game";
 import {FibboQueue} from "../game-gen/FibboQueue";
 import {MatDialog} from "@angular/material/dialog";
 import {PlayOptionsDialog} from "./options-dialog/play-options-dialog.component";
 import {PlayWarningDialog} from "./warning-dialog/play-warning-dialog.component";
-import {LCRNG} from "../game-gen/LCRNG";
 import {ActivatedRoute, Router} from "@angular/router";
+import {GameEncoder} from "../game-gen/GameEncoder";
 
 @Component({
   selector: 'app-play',
