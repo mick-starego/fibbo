@@ -16,8 +16,26 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    //transform: scale(1.06);
-    margin-top: 15px;
+
+}
+
+.desktop {
+  margin-top: 15px;
+}
+
+.mobile-lg {
+  transform: scale(0.75);
+  margin-top: -60px;
+}
+
+.mobile {
+  transform: scale(0.67);
+  margin-top: -90px;
+}
+
+.mobile-sm {
+  transform: scale(0.57);
+  margin-top: -130px;
 }
 
 .column {

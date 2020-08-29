@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {FibboDifficulty} from "../game-gen/FibboDifficulty";
 import {Constants} from "../utils/Constants";
 import {Game} from "../game-gen/models/Game";
@@ -24,6 +24,9 @@ export class PlayComponent implements OnInit {
   @ViewChild('optionsButton') optionsButton: ElementRef;
   @ViewChild('newGameButton') newGameButton: ElementRef;
 
+  screenWidth: number;
+  screenSizeClass: string;
+
   values: number[];
   directions: number[][];
   moveStack: number[][] = [];
@@ -48,6 +51,8 @@ export class PlayComponent implements OnInit {
     public route: ActivatedRoute,
     public router: Router
   ) {
+    this.setScreenSizeClass();
+
     this.directions = FibboDifficulty.DIRECTIONS;
     this.fibbSeq = [0,1,2,3,5,8,13,21,34,55,89];
 
@@ -67,6 +72,18 @@ export class PlayComponent implements OnInit {
   }
 
   ngOnInit(): void { }
+
+  setScreenSizeClass() {
+    if (screen.width <= 340) {
+      this.screenSizeClass = 'mobile-sm';
+    } else if (screen.width <= 375) {
+      this.screenSizeClass = 'mobile';
+    } else if (screen.width <= 414) {
+      this.screenSizeClass = 'mobile-lg';
+    } else {
+      this.screenSizeClass = 'desktop';
+    }
+  }
 
   onClick(id: number) {
     if (this.start === id) {
