@@ -7,7 +7,6 @@
     transform: scale(0.94);
     width: fit-content;
     outline: none;
-    margin-top: -10px;
     // background-color: #FFF6ED;
 }
 
@@ -16,6 +15,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    height: 100%;
 
 }
 
@@ -25,17 +25,17 @@
 
 .mobile-lg {
   transform: scale(0.75);
-  margin-top: -60px;
+  margin-top: -95px;
 }
 
 .mobile {
-  transform: scale(0.67);
-  margin-top: -90px;
+  transform: scale(0.68);
+  margin-top: -125px;
 }
 
 .mobile-sm {
-  transform: scale(0.57);
-  margin-top: -130px;
+  transform: scale(0.60);
+  margin-top: -165px;
 }
 
 .column {
@@ -87,8 +87,6 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .sidebar {
@@ -129,10 +127,7 @@
     width: 500px;
     font-family: "Nunito";
     color: #663100;
-    font-size: 15pt;
-    margin-top: 15px;
     padding-left: 10px;
-    margin-bottom: 10px;
     -webkit-user-select: none;
 }
 
@@ -148,9 +143,7 @@
     .header {
         font-family: "Nunito";
         color: #663100;
-        font-size: 15pt;
         -webkit-user-select: none;
-        padding-bottom: 3px;
     }
 }
 
@@ -172,7 +165,6 @@
         width: fit-content;
         font-family: "Nunito";
         color: #54b04d;
-        font-size: 15pt;
         font-weight: 700;
         -webkit-user-select: none;
     }
@@ -181,7 +173,6 @@
         width: fit-content;
         font-family: "Nunito";
         color: #d18f2c;
-        font-size: 15pt;
         font-weight: 700;
         -webkit-user-select: none;
     }
@@ -190,7 +181,6 @@
         width: fit-content;
         font-family: "Nunito";
         color: #c41704;
-        font-size: 15pt;
         font-weight: 700;
         -webkit-user-select: none;
     }
@@ -199,7 +189,6 @@
       width: fit-content;
       font-family: "Nunito";
       color: #5e0523;
-      font-size: 15pt;
       font-weight: 700;
       -webkit-user-select: none;
     }
@@ -208,7 +197,6 @@
         width: fit-content;
         font-family: "Nunito";
         color: #663100;
-        font-size: 15pt;
         -webkit-user-select: none;
     }
 }
@@ -227,7 +215,6 @@
         width: fit-content;
         font-family: "Nunito";
         color: #663100;
-        font-size: 15pt;
         font-weight: 700;
         -webkit-user-select: none;
     }
@@ -236,15 +223,11 @@
         width: fit-content;
         font-family: "Nunito";
         color: #663100;
-        font-size: 15pt;
         -webkit-user-select: none;
     }
 }
 
-.display-node {
-}
-
-.new-game-button {
+.new-game-button-desktop {
     font-family: 'Nunito';
     font-weight: 700;
     height: 40px;
@@ -255,12 +238,42 @@
     margin-right: 10px;
 }
 
-.settings-button {
+.settings-button-desktop {
   font-family: 'Nunito';
   font-weight: 700;
   height: 40px;
   color: #663100;
   width: 105px;
+}
+
+.new-game-button-mobile {
+  font-family: 'Nunito';
+  font-weight: 700;
+  color: white;
+  background-color: #63ba68;
+  font-size: 18pt;
+  width: calc(100% - 40px);
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.settings-button-mobile {
+  font-size: 18pt;
+  width: calc(100% - 40px);
+  height: 60px;
+  font-family: 'Nunito';
+  font-weight: 700;
+  color: #663100;
+}
+
+.mobile-button-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 60px;
+  padding-bottom: 20px;
 }
 
 .button-container {

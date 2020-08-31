@@ -15,12 +15,18 @@ export class PlayOptionsDialog {
   readonly EVIL = Constants.EVIL_DIFFICULTY;
 
   selection: string;
+  mediumText: string;
 
   constructor(
     public dialogRef: MatDialogRef<PlayOptionsDialog>
   ) {
 
     this.selection = null;
+    if (screen.width <= 414) {
+      this.mediumText = 'med';
+    } else {
+      this.mediumText = 'medium';
+    }
   }
 
   onNoClick(): void {

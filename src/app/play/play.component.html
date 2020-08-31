@@ -1,12 +1,12 @@
 <div class="page">
     <div class="column" [ngClass]="screenSizeClass">
-        <div class="title-container">
+        <div *ngIf="screenSizeClass === 'desktop'" class="title-container">
             <span class="title">fibbo</span>
             <div class="button-container">
               <button
                 #optionsButton
                 mat-button
-                class="settings-button"
+                class="settings-button-desktop"
                 (click)="openNewGameDialog()"
               >
                 Options
@@ -14,7 +14,7 @@
               <button
                 #newGameButton
                 mat-raised-button
-                class="new-game-button"
+                class="new-game-button-desktop"
                 (click)="onNewGameClicked()"
               >
                 New Game
@@ -27,6 +27,8 @@
                     <span
                       class="header"
                       [style.color]="targetState === 1 ? '#d4a600' : ''"
+                      [style.fontSize]="screenSizeClass === 'desktop' ? '15pt' : '18pt'"
+                      [style.paddingBottom]="screenSizeClass === 'desktop' ? '3px' : '7px'"
                     >
                       target
                     </span>
@@ -37,19 +39,32 @@
                       >
                       </app-display-node>
                 </div>
-                <div class="difficulty">
+                <div
+                  class="difficulty"
+                  [style.fontSize]="screenSizeClass === 'desktop' ? '15pt' : '18pt'"
+                >
                     <span class="header">difficulty</span>
                     <span *ngIf="difficulty === EASY" class="easy">easy</span>
                     <span *ngIf="difficulty === MEDIUM" class="medium">medium</span>
                     <span *ngIf="difficulty === HARD" class="hard">hard</span>
                     <span *ngIf="difficulty === EVIL" class="evil">evil</span>
                 </div>
-                <div class="rows">
+                <div
+                  class="rows"
+                  [style.fontSize]="screenSizeClass === 'desktop' ? '15pt' : '18pt'"
+                >
                     <span class="header">rows</span>
                     <span class="body">5</span>
                 </div>
             </div>
-            <span class="sequence-header">the sequence</span>
+            <span
+              class="sequence-header"
+              [style.fontSize]="screenSizeClass === 'desktop' ? '15pt' : '18pt'"
+              [style.marginTop]="screenSizeClass === 'desktop' ? '15px' : '20px'"
+              [style.marginBottom]="screenSizeClass === 'desktop' ? '10px' : '15px'"
+            >
+              the sequence
+            </span>
             <div class="sequence">
               <app-display-node class="display-node" [value]="0"></app-display-node>
               <app-display-node class="display-node" [value]="1"></app-display-node>
@@ -65,7 +80,13 @@
               <app-display-node class="display-node" [value]="89"></app-display-node>
             </div>
         </div>
-        <div class="container" (click)="clickAway()" tabindex="0" (keydown.backspace)="undo()">
+        <div
+          class="container"
+          (click)="clickAway()"
+          tabindex="0"
+          (keydown.backspace)="undo()"
+          [style.marginTop]="screenSizeClass === 'desktop' ? '-10px' : '10px'"
+        >
             <!-- <app-node [value]="4"></app-node> -->
             <div class="row">
                 <app-node class="top node" [value]="values[0]" [selected]='state[0]' (mouseout)="onMouseOut(0)" (mouseover)="onHover(0)" (click)="onClick(0)"></app-node>
@@ -93,6 +114,22 @@
                 <app-node class="node" [value]="values[13]" [selected]='state[13]' (mouseout)="onMouseOut(13)" (mouseover)="onHover(13)"(click)="onClick(13)"></app-node>
                 <app-node class="node" [value]="values[14]" [selected]='state[14]' (mouseout)="onMouseOut(14)" (mouseover)="onHover(14)" (click)="onClick(14)"></app-node>
             </div>
+        </div>
+        <div *ngIf="screenSizeClass !== 'desktop'" class="mobile-button-container">
+          <button
+            mat-raised-button
+            class="new-game-button-mobile"
+            (click)="onNewGameClicked()"
+          >
+            New Game
+          </button>
+          <button
+            mat-button
+            class="settings-button-mobile"
+            (click)="openNewGameDialog()"
+          >
+            Options
+          </button>
         </div>
     </div>
 </div>

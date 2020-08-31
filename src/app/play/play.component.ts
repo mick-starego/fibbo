@@ -24,7 +24,6 @@ export class PlayComponent implements OnInit {
   @ViewChild('optionsButton') optionsButton: ElementRef;
   @ViewChild('newGameButton') newGameButton: ElementRef;
 
-  screenWidth: number;
   screenSizeClass: string;
 
   values: number[];
