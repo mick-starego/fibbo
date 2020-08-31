@@ -8,6 +8,7 @@ import {PlayOptionsDialog} from "./options-dialog/play-options-dialog.component"
 import {PlayWarningDialog} from "./warning-dialog/play-warning-dialog.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GameEncoder} from "../game-gen/GameEncoder";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-play',
@@ -48,7 +49,8 @@ export class PlayComponent implements OnInit {
     public dialog: MatDialog,
     public changeDetectorRef: ChangeDetectorRef,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private meta: Meta
   ) {
     this.setScreenSizeClass();
 
@@ -68,6 +70,11 @@ export class PlayComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.loadGame(GameEncoder.buildFromCodeString(params['code']));
     });
+
+    this.meta.addTags([
+      {name: 'og:title', content: 'Fibbo'},
+      {name: 'og:image', content: 'https://pushoflove.com/icon.png'}
+    ])
   }
 
   ngOnInit(): void { }
