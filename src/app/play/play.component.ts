@@ -71,10 +71,11 @@ export class PlayComponent implements OnInit {
       this.loadGame(GameEncoder.buildFromCodeString(params['code']));
     });
 
-    // this.meta.addTags([
-    //   {property: 'og:title', content: 'Fibbo'},
-    //   {property: 'og:image', content: 'https://pushoflove.com/icon.png'}
-    // ])
+    this.meta.addTags([
+      {property: 'og:title', content: 'Fibbo'},
+      {property: 'og:image', content: 'https://pushoflove.com/icon.png'},
+      {property: 'og:url', content: this.router.url }
+    ])
   }
 
   ngOnInit(): void { }
