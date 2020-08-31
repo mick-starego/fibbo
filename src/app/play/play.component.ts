@@ -72,8 +72,8 @@ export class PlayComponent implements OnInit {
     });
 
     this.meta.addTags([
-      {name: 'og:title', content: 'Fibbo'},
-      {name: 'og:image', content: 'https://pushoflove.com/icon.png'}
+      {property: 'og:title', content: 'Fibbo'},
+      {property: 'og:image', content: 'https://pushoflove.com/icon.png'}
     ])
   }
 
