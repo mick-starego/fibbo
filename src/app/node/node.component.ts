@@ -23,7 +23,7 @@ export class NodeComponent implements OnInit, OnChanges {
   }
   getBkg() {
     if (this.selected === 1) {
-      return 'DDC49A';
+      return '#DDC49A';
     } else if (this.selected === 2) {
       return '#a4eba2';
     } else if (this.selected === 3) {
