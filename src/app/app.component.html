@@ -1,18 +1,33 @@
 <header>
-    <div class="container">
-        <a routerLink="/home" class="logo no-select">fibbo</a>
-        <nav>
+    <div class="header-container">
+        <a routerLink="/home" class="logo no-select">
+          <img style="height: 40px; width: 40px" src="./assets/favicon.png"/>
+        </a>
+        <div>
+<!--          <nav>-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                <a-->
+<!--                  class="no-select"-->
+<!--                >-->
+<!--                  Tutorial-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </nav>-->
+          <nav>
             <ul>
-                <li>
-                    <a
-                      [routerLink]="gameRoute"
-                      class="no-select"
-                    >
-                      Play
-                    </a>
-                </li>
+              <li>
+                <a
+                  [routerLink]="gameRoute"
+                  class="no-select"
+                >
+                  Play
+                </a>
+              </li>
             </ul>
-        </nav>
+          </nav>
+        </div>
     </div>
 </header>
 
