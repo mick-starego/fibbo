@@ -18,15 +18,8 @@ export class HomeComponent implements OnInit {
     if (AppComponent.savedGame) {
       this.gameRoute = '/play/' + AppComponent.savedGame;
     } else {
-      this.updateEasyGameRoute();
+      console.error("AppComponent savedGame is null");
     }
-  }
-
-  /**
-   * Called onInit of home component
-   */
-  updateEasyGameRoute(): void {
-    this.gameRoute = '/play/' + AppComponent.getEasyGameKey();
   }
 
 }

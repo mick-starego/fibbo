@@ -17,6 +17,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {PlayWarningDialog} from "./play/warning-dialog/play-warning-dialog.component";
+import {StorageServiceModule} from "angular-webstorage-service";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {PlayWarningDialog} from "./play/warning-dialog/play-warning-dialog.compo
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    StorageServiceModule
   ],
   providers: [],
   entryComponents: [

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
 import {FibboDifficulty} from "../game-gen/FibboDifficulty";
 import {Constants} from "../utils/Constants";
 import {Game} from "../game-gen/models/Game";
@@ -9,6 +9,7 @@ import {PlayWarningDialog} from "./warning-dialog/play-warning-dialog.component"
 import {ActivatedRoute, Router} from "@angular/router";
 import {GameEncoder} from "../game-gen/GameEncoder";
 import {Meta} from "@angular/platform-browser";
+import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
 
 @Component({
   selector: 'app-play',
@@ -46,6 +47,7 @@ export class PlayComponent implements OnInit {
   difficulty: string;
 
   constructor(
+    @Inject(LOCAL_STORAGE) private storage: WebStorageService,
     public dialog: MatDialog,
     public changeDetectorRef: ChangeDetectorRef,
     public route: ActivatedRoute,
@@ -120,6 +122,10 @@ export class PlayComponent implements OnInit {
     }
     this.passClickAway = true;
     this.updateState();
+
+    if (this.solved) {
+      this.storage.remove('savedGame');
+    }
   }
 
   clickAway() {

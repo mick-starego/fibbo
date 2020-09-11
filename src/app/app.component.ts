@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FibboQueue} from "./game-gen/FibboQueue";
 import {Constants} from "./utils/Constants";
 import {GameEncoder} from "./game-gen/GameEncoder";
 import {NavigationEnd, Router} from "@angular/router";
+import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,17 @@ export class AppComponent implements OnInit {
   gameRoute = '';
   static savedGame = null;
 
-  constructor(public router: Router) {
+  constructor(
+    @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    public router: Router
+  ) {
 
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         if (e.url.includes('/play/')) {
           this.gameRoute = e.url;
           AppComponent.savedGame = e.url.split('/play/').pop();
+          this.storage.set('savedGame', AppComponent.savedGame);
         }
       }
     });
@@ -30,7 +35,9 @@ export class AppComponent implements OnInit {
     FibboQueue.initialize();
     console.log('Queue Initialized');
     FibboQueue.log();
-    this.loadEasyGameRoute();
+
+    AppComponent.savedGame = this.storage.get('savedGame');
+    this.loadInitialGameRoute();
   }
 
   static getEasyGameKey(): string {
@@ -41,7 +48,10 @@ export class AppComponent implements OnInit {
   /**
    * Called after onInit
    */
-  loadEasyGameRoute(): void {
-    this.gameRoute = '/play/' + AppComponent.getEasyGameKey();
+  loadInitialGameRoute(): void {
+    if (!AppComponent.savedGame) {
+      AppComponent.savedGame = AppComponent.getEasyGameKey();
+    }
+    this.gameRoute = '/play/' + AppComponent.savedGame;
   }
 }
