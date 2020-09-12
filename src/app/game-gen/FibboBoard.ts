@@ -32,7 +32,7 @@ export class FibboBoard {
   }
 
   toString(): string {
-    let currentIndex: number = 0;
+    let currentIndex = 0;
     let leftPad: number;
     let boardString = '';
 

@@ -57,7 +57,7 @@ export class FibboQueue {
     const state = FibboQueue.QUEUE_STATES[difficulty];
     let force = false;
     let timeout: number = null;
-    let target: Target = new Target();
+    const target: Target = new Target();
 
     switch (state) {
       case Constants.QUEUE_EMPTY:

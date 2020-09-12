@@ -1,6 +1,7 @@
 import {Game} from "./models/Game";
 import {FibboGenerator} from "./FibboGenerator";
 import {Constants} from "../utils/Constants";
+import {Move} from "../play/models/Move";
 
 export class FibboDifficulty {
 
@@ -17,7 +18,7 @@ export class FibboDifficulty {
   static ADVANCED_UPPER_BOUND = 60;
 
   static getDifficulty(game: Game): string {
-    let difficulty = this.calcDifficulty(game);
+    const difficulty = this.calcDifficulty(game);
 
     if (difficulty === -1) {
       return Constants.UNSOLVABLE_GAME;
@@ -50,7 +51,9 @@ export class FibboDifficulty {
     const solved = this.backtrack(
       Object.assign(game.board, []),
       false,
-      deadEndSet
+      deadEndSet,
+      false,
+      undefined
     );
 
     if (solved) {
@@ -63,11 +66,13 @@ export class FibboDifficulty {
   private static backtrack(
     board: number[],
     solved: boolean,
-    deadEndSet: Set<number>
+    deadEndSet: Set<number>,
+    isMoveFinder: boolean,
+    moves: Set<Move>
   ): boolean {
 
     let dir: number[];
-    let deadEnd = true;
+    let deadEnd = !isMoveFinder;
     for (let dirSelector = 0; dirSelector < 3; dirSelector++) {
       dir = FibboDifficulty.DIRECTIONS[dirSelector];
 
@@ -99,7 +104,17 @@ export class FibboDifficulty {
           board[dir[i]] = -1;
           board[dir[i + 1]] = -1;
 
-          solved = this.backtrack(board, solved, deadEndSet);
+          if (!isMoveFinder) {
+            solved = this.backtrack(board, solved, deadEndSet, false, undefined);
+          } else {
+            moves.add({
+              start: dir[i],
+              middle: dir[i+1],
+              target: dir[i+2],
+              dir: (dirSelector as 0 | 1 | 2),
+              mobility: 0
+            })
+          }
 
           board[dir[i]] = holdOne;
           board[dir[i + 1]] = holdTwo;
@@ -125,7 +140,17 @@ export class FibboDifficulty {
           board[dir[i + 1]] = -1;
           board[dir[i + 2]] = -1;
 
-          solved = this.backtrack(board, solved, deadEndSet);
+          if (!isMoveFinder) {
+            solved = this.backtrack(board, solved, deadEndSet, false, undefined);
+          } else {
+            moves.add({
+              start: dir[i+2],
+              middle: dir[i+1],
+              target: dir[i],
+              dir: (dirSelector as 0 | 1 | 2),
+              mobility: 0
+            })
+          }
 
           board[dir[i + 1]] = holdOne;
           board[dir[i + 2]] = holdTwo;
@@ -154,5 +179,11 @@ export class FibboDifficulty {
     }
 
     return solved;
+  }
+
+  public static moveFinderBacktrackWrapper(board: number[]): Set<Move> {
+    const moves = new Set<Move>();
+    this.backtrack(board, false, undefined, true, moves);
+    return moves;
   }
 }

@@ -8,7 +8,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class NodeComponent implements OnInit, OnChanges {
   @Input() value: number;
   @Input() selected: number;
-  style: string = "";
+  style = "";
 
   constructor() {
   }

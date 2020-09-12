@@ -10,6 +10,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {GameEncoder} from "../game-gen/GameEncoder";
 import {Meta} from "@angular/platform-browser";
 import {LOCAL_STORAGE, WebStorageService} from "angular-webstorage-service";
+import {MoveFinder} from "./MoveFinder";
+import {Move} from "./models/Move";
 
 @Component({
   selector: 'app-play',
@@ -25,6 +27,8 @@ export class PlayComponent implements OnInit {
 
   @ViewChild('optionsButton') optionsButton: ElementRef;
   @ViewChild('newGameButton') newGameButton: ElementRef;
+
+  gameCode: string;
 
   screenSizeClass: string;
 
@@ -45,6 +49,12 @@ export class PlayComponent implements OnInit {
 
   boardTarget: number;
   difficulty: string;
+
+  spacebarMoveIndex: number;
+  isSpacebarDown: boolean;
+
+  lastArrowKey: string;
+  lastArrowKeyIndex: number;
 
   constructor(
     @Inject(LOCAL_STORAGE) private storage: WebStorageService,
@@ -69,8 +79,13 @@ export class PlayComponent implements OnInit {
       this.state[i] = 0;
     }
 
+    this.spacebarMoveIndex = 0;
+    this.isSpacebarDown = true;
+    this.lastArrowKeyIndex = 0;
+
     this.route.params.subscribe((params) => {
-      this.loadGame(GameEncoder.buildFromCodeString(params['code']));
+      this.gameCode = params['code'];
+      this.loadGame(GameEncoder.buildFromCodeString(this.gameCode));
     });
 
     this.meta.addTags([
@@ -80,7 +95,37 @@ export class PlayComponent implements OnInit {
     ])
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    const thisRef = this;
+    window.addEventListener('keydown', function(e) {
+      if (e.code === 'Space') {
+        e.preventDefault();
+      } else if (e.code === 'ArrowRight') {
+        thisRef.onArrowKey(Constants.ARROW_RIGHT);
+        e.preventDefault();
+      } else if (e.code === 'ArrowLeft') {
+        thisRef.onArrowKey(Constants.ARROW_LEFT);
+        e.preventDefault();
+      } else if (e.code === 'ArrowUp') {
+        thisRef.onArrowKey(Constants.ARROW_UP);
+        e.preventDefault();
+      } else if (e.code === 'ArrowDown') {
+        thisRef.onArrowKey(Constants.ARROW_DOWN);
+        e.preventDefault();
+      } else if (e.code.includes('Shift')) {
+        thisRef.undo();
+      } else {
+        thisRef.clearBoard();
+      }
+    });
+
+    window.addEventListener('keyup', function(e) {
+      if (e.code === 'Space') {
+        thisRef.onSpacebarUp();
+        e.preventDefault();
+      }
+    });
+  }
 
   setScreenSizeClass() {
     if (screen.width <= 340) {
@@ -105,15 +150,7 @@ export class PlayComponent implements OnInit {
       this.target = undefined;
     } else if (this.start !== undefined && this.middle !== undefined && this.target !== undefined) {
       if (this.targetIsValid(this.target)) {
-        this.moveStack[this.numMoves] = Object.assign([], this.values);
-        this.numMoves++;
-        this.values[this.target] = this.values[this.start] + this.values[this.middle];
-        this.values[this.start] = -1;
-        this.values[this.middle] = -1;
-        this.start = undefined;
-        this.middle = undefined;
-        this.target = undefined;
-        this.solved = this.checkSolved();
+        this.performMove();
       } else {
         this.start = undefined;
         this.middle = undefined;
@@ -128,19 +165,36 @@ export class PlayComponent implements OnInit {
     }
   }
 
+  performMove() {
+    this.moveStack[this.numMoves] = Object.assign([], this.values);
+    this.numMoves++;
+    this.values[this.target] = this.values[this.start] + this.values[this.middle];
+    this.values[this.start] = -1;
+    this.values[this.middle] = -1;
+    this.start = undefined;
+    this.middle = undefined;
+    this.target = undefined;
+    this.solved = this.checkSolved();
+    this.updateState();
+  }
+
   clickAway() {
     if (!this.passClickAway) {
-      this.start = undefined;
-      this.middle = undefined;
-      this.target = undefined;
+      this.clearBoard();
     }
     this.passClickAway = false;
+  }
+
+  clearBoard() {
+    this.start = undefined;
+    this.middle = undefined;
+    this.target = undefined;
     this.updateState();
   }
 
   onHover(id: number) {
     if (this.start !== undefined && this.middle === undefined && this.target === undefined) {
-      let middle = this.getMiddle(id);
+      const middle = this.getMiddle(id);
       if (middle !== undefined && this.values[middle] >= 0) {
         this.middle = middle;
         this.target = id;
@@ -201,7 +255,7 @@ export class PlayComponent implements OnInit {
       return undefined;
     }
     for (let i = 0; i < 3; i++) {
-      let direction = this.directions[i];
+      const direction = this.directions[i];
       for (let index = 0; index < direction.length; index++) {
         if (direction[index] === this.start) {
           if (index + 2 < direction.length && direction[index + 2] === targetId) {
@@ -237,7 +291,7 @@ export class PlayComponent implements OnInit {
   }
 
   newGame(difficulty: string) {
-    let game: any = FibboQueue.getGame(difficulty);
+    const game: any = FibboQueue.getGame(difficulty);
     this.router.navigate(['play', GameEncoder.generateCodeString(game.seed, game.target)]);
   }
 
@@ -256,6 +310,8 @@ export class PlayComponent implements OnInit {
     this.target = undefined;
     this.solved = false;
     this.targetState = 0;
+
+    MoveFinder.clearCache();
   }
 
   openNewGameDialog(): void {
@@ -287,6 +343,38 @@ export class PlayComponent implements OnInit {
     } else {
       this.newGame(this.difficulty);
     }
+  }
+
+  onSpacebarUp() {
+    if (this.start !== undefined && this.middle !== undefined && this.target !== undefined) {
+      this.performMove();
+    }
+  }
+
+  onArrowKey(selector: string): void {
+    if (!selector) return;
+
+    const moves = MoveFinder.getMoves(this.values, selector);
+
+    if (selector === this.lastArrowKey) {
+      this.lastArrowKeyIndex++;
+      if (this.lastArrowKeyIndex >= moves.length) {
+        this.lastArrowKeyIndex = 0;
+      }
+    } else {
+      this.lastArrowKeyIndex = 0;
+    }
+
+    const move = moves[this.lastArrowKeyIndex];
+
+    if (move !== undefined) {
+      this.start = move.start;
+      this.middle = move.middle;
+      this.target = move.target;
+      this.updateState();
+    }
+
+    this.lastArrowKey = selector;
   }
 
 }

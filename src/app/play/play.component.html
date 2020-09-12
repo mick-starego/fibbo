@@ -84,10 +84,8 @@
           class="container"
           (click)="clickAway()"
           tabindex="0"
-          (keydown.backspace)="undo()"
           [style.marginTop]="screenSizeClass === 'desktop' ? '-10px' : '10px'"
         >
-            <!-- <app-node [value]="4"></app-node> -->
             <div class="row">
                 <app-node class="top node" [value]="values[0]" [selected]='state[0]' (mouseout)="onMouseOut(0)" (mouseover)="onHover(0)" (click)="onClick(0)"></app-node>
               <div class="undo" (click)="undo()"><mat-icon class="icon" aria-hidden="false">undo</mat-icon></div>

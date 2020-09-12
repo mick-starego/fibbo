@@ -21,4 +21,9 @@ export class Constants {
   static QUEUE_FULL = 'QUEUE_FULL';
 
   static GEN_ONE_PATTERN = 77586305296;
+
+  static ARROW_UP = 'UP';
+  static ARROW_DOWN = 'DOWN';
+  static ARROW_LEFT = 'LEFT';
+  static ARROW_RIGHT = 'RIGHT';
 }

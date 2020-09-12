@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {FibboQueue} from "./game-gen/FibboQueue";
 import {Constants} from "./utils/Constants";
 import {GameEncoder} from "./game-gen/GameEncoder";
@@ -54,4 +54,5 @@ export class AppComponent implements OnInit {
     }
     this.gameRoute = '/play/' + AppComponent.savedGame;
   }
+
 }

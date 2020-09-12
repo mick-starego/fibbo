@@ -239,7 +239,7 @@ export class GameEncoder {
 
     // Separate targetCode and key
     let targetCode = 0;
-    let keyArray: boolean[] = [];
+    const keyArray: boolean[] = [];
     for (let i = 0; i < 8; i++) {
       if (7 - indexLSB === i) {
         targetCode += (keyWithTarget % 2);

@@ -11,7 +11,7 @@ export class FibboGenerator {
 
   static generate(target: number, seed: number = LCRNG.getIntFromMathRand()): Game {
 
-    let game: Game = {
+    const game: Game = {
       board: null,
       seed: seed,
       difficulty: '',
