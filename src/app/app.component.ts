@@ -15,10 +15,18 @@ export class AppComponent implements OnInit {
   gameRoute = '';
   static savedGame = null;
 
+  isMobileWidth: boolean = false;
+  isAnniversaryDay: boolean = false;
+  isAnniversaryBannerVisible: boolean = false;
+
   constructor(
     @Inject(LOCAL_STORAGE) private storage: WebStorageService,
     public router: Router
   ) {
+
+    this.isMobileWidth = window.innerWidth < 500;
+    this.isAnniversaryDay = new Date().getDate() === 20 && new Date().getMonth() === 0;
+    this.isAnniversaryBannerVisible = this.isAnniversaryDay;
 
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
@@ -53,6 +61,10 @@ export class AppComponent implements OnInit {
       AppComponent.savedGame = AppComponent.getEasyGameKey();
     }
     this.gameRoute = '/play/' + AppComponent.savedGame;
+  }
+
+  onAnniversaryBannerClicked() {
+    this.isAnniversaryBannerVisible = false;
   }
 
 }

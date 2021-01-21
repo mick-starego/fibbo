@@ -34,3 +34,55 @@
     margin-top: 15px;
   }
 }
+
+.anniversary-banner {
+  width: 100vw;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 1s;
+  background: rgb(230,201,255);
+  background: linear-gradient(180deg, rgba(230,201,255,1) 0%, rgba(249,238,255,1) 97%);
+  -webkit-box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.27);
+  -moz-box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.27);
+  box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.27);
+}
+
+.not-visible {
+  opacity: 0;
+  cursor: default;
+}
+
+.anniversary-text {
+  white-space: nowrap;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.anniversary-banner-infinite {
+  position: absolute;
+  width: 250px;
+  display: flex;
+  align-items: center;
+}
+
+.animate-banner-slow {
+  animation: slideshow 16s linear infinite;
+}
+
+.animate-banner-fast {
+  animation: slideshow 12s linear infinite;
+}
+
+.heart-icon {
+  width: 20px;
+  margin-right: 2px;
+}
+
+@keyframes slideshow {
+  0%    { left: -250px; }
+  100%  { left: calc(100% + 250px); }
+}

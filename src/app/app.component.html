@@ -4,17 +4,6 @@
           <img style="height: 40px; width: 40px" src="./assets/favicon.png"/>
         </a>
         <div>
-<!--          <nav>-->
-<!--            <ul>-->
-<!--              <li>-->
-<!--                <a-->
-<!--                  class="no-select"-->
-<!--                >-->
-<!--                  Tutorial-->
-<!--                </a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </nav>-->
           <nav>
             <ul>
               <li>
@@ -30,6 +19,22 @@
         </div>
     </div>
 </header>
+<div
+  *ngIf="isAnniversaryDay"
+  class="anniversary-banner"
+  [ngClass]="!isAnniversaryBannerVisible ? 'not-visible' : ''"
+  (click)="onAnniversaryBannerClicked()"
+>
+  <div
+    class="anniversary-banner-infinite"
+    [ngClass]="isMobileWidth ? 'animate-banner-fast' : 'animate-banner-slow'"
+  >
+    <span class="anniversary-text">Happy Anniversary Sarah!</span>
+    <img class="heart-icon" src="./assets/img/heart-beating.png" />
+    <img class="heart-icon" src="./assets/img/heart-red.png" />
+    <img class="heart-icon" src="./assets/img/heart-sparkle.png" />
+  </div>
+</div>
 
 <div class="container" style="height: 94vh; min-height: 750px;">
     <router-outlet></router-outlet>
