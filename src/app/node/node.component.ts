@@ -31,7 +31,7 @@ export class NodeComponent implements OnInit, OnChanges {
     } else if (this.selected === 4) {
       return 'white';
     } else {
-      return 'FFFAF2';
+      return '#FFFAF2';
     }
   }
 
